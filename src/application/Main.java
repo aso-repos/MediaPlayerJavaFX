@@ -15,7 +15,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/mp3player.fxml"));
         Scene scene = new Scene(root);
 
-        scene.getStylesheets().add(getClass().getResource("/css/mp3style.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/css/default.css").toExternalForm());
 
         Image icon = new Image(getClass().getResourceAsStream("/icons/aso_logo.png"));
         stage.getIcons().add(icon);

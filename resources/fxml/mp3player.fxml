@@ -1,15 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mp3player.MP3View">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="720.0" styleClass="player-background" stylesheets="@../css/default.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mp3player.MP3View">
    <children>
-      <Label layoutX="296.0" layoutY="108.0" text="Dummy Text">
+      <Label alignment="CENTER" layoutX="14.0" layoutY="24.0" prefHeight="143.0" prefWidth="511.0" styleClass="display-window" stylesheets="@../css/default.css" text="Song Title" textAlignment="RIGHT" textFill="#44d8ff">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
+      <Button fx:id="skipbackButton" disable="true" layoutX="13.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipbackClicked" prefHeight="35.0" prefWidth="80.0" styleClass="default-button" stylesheets="@../css/default.css" text="B" textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font name="MediaPlayer" size="26.0" />
+         </font></Button>
+      <ProgressBar fx:id="progressBar" disable="true" focusTraversable="false" layoutX="14.0" layoutY="167.0" prefHeight="18.0" prefWidth="512.0" progress="0.0" />
+      <Button fx:id="playpauseButton" disable="true" layoutX="187.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playpauseClicked" prefHeight="35.0" prefWidth="80.0" styleClass="default-button" stylesheets="@../css/default.css" text="P" textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font name="MediaPlayer" size="26.0" />
+         </font>
+      </Button>
+      <Button fx:id="stopButton" disable="true" layoutX="274.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#stopClicked" prefHeight="35.0" prefWidth="80.0" styleClass="default-button" stylesheets="@../css/default.css" text="S" textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font name="MediaPlayer" size="26.0" />
+         </font>
+      </Button>
+      <Button fx:id="skipforwardButton" disable="true" layoutX="448.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipforwardClicked" prefHeight="35.0" prefWidth="80.0" styleClass="default-button" stylesheets="@../css/default.css" text="F" textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font name="MediaPlayer" size="26.0" />
+         </font>
+      </Button>
+      <Button fx:id="skipbeginningButton" disable="true" layoutX="100.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipbeginningClicked" prefHeight="35.0" prefWidth="80.0" styleClass="default-button" stylesheets="@../css/default.css" text="-" textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font name="MediaPlayer" size="26.0" />
+         </font>
+      </Button>
+      <Button fx:id="skipendingButton" disable="true" layoutX="361.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipendingClicked" prefHeight="35.0" prefWidth="80.0" styleClass="default-button" stylesheets="@../css/default.css" text="+" textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font name="MediaPlayer" size="26.0" />
+         </font>
+      </Button>
+      <Label fx:id="volumeDown" focusTraversable="false" layoutX="534.0" layoutY="161.0" text="D" textFill="WHITE">
+         <font>
+            <Font name="MediaPlayer" size="38.0" />
+         </font></Label>
+      <Label fx:id="volumeUp" focusTraversable="false" layoutX="674.0" layoutY="160.0" text="U" textFill="WHITE">
+         <font>
+            <Font name="MediaPlayer" size="38.0" />
+         </font>
+      </Label>
+      <Label focusTraversable="false" layoutX="543.0" layoutY="-23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="82.0" prefWidth="160.0" text="A" textFill="WHITE">
+         <font>
+            <Font name="MediaPlayer" size="160.0" />
+         </font>
+      </Label>
+      <Slider fx:id="volumeSlider" disable="true" layoutX="568.0" layoutY="168.0" prefHeight="14.0" prefWidth="113.0" />
+      <Button fx:id="muteButton" disable="true" layoutX="586.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#muteClicked" prefHeight="35.0" prefWidth="80.0" styleClass="default-button" stylesheets="@../css/default.css" text="M" textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font name="MediaPlayer" size="26.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
