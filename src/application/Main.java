@@ -20,6 +20,8 @@ public class Main extends Application {
         Image icon = new Image(getClass().getResourceAsStream("/icons/aso_logo.png"));
         stage.getIcons().add(icon);
 
+        stage.setResizable(false);
+
         stage.setScene(scene);
         stage.show();
     }
