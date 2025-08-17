@@ -4,11 +4,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -35,6 +38,8 @@ public class MP3View implements Initializable {
     private ProgressBar progressBar;
     @FXML
     private Slider volumeSlider;
+    @FXML
+    private Label songTitle;
 
     private int currentTrackIndex = 0;
     private List<String> trackList = new ArrayList<>();
@@ -48,8 +53,8 @@ public class MP3View implements Initializable {
         Font.loadFont(getClass().getResourceAsStream("/MediaPlayer.ttf"), 12);
 
         String[] testFiles = {"/music/Blue_Giraffe_-_Epic_Trailer_Inspire.mp3",
-            "/music/Metal Impact Sound Effects - Sample Library.mp3",
-            "/music/Morning Guided Meditation For Positive Energy & Motivation.mp3"};
+                "/music/Metal Impact Sound Effects - Sample Library.mp3",
+                "/music/Morning Guided Meditation For Positive Energy & Motivation.mp3"};
 
         // Add test files trackList ArrayList
         for (String path : testFiles) {
@@ -65,9 +70,9 @@ public class MP3View implements Initializable {
             int counter = 0;
             for (String track : trackList) {
 
-                System.out.println("Track " +counter + " Loaded: " + trackList.get(counter));
-                counter ++;
-                }
+                System.out.println("Track " + counter + " Loaded: " + trackList.get(counter));
+                counter++;
+            }
         } else {
 
             System.out.println("No Tracks Loaded");
@@ -75,9 +80,7 @@ public class MP3View implements Initializable {
 
         //Check that trackList not empty and load current track into MediaPlayer
         if (!trackList.isEmpty()) {
-            mpthreeMedia = new Media(trackList.get(currentTrackIndex));
-            mpthreePlayer = new MediaPlayer(mpthreeMedia);
-            System.out.println("MP3 PLayer Ready For Track: " + trackList.get(currentTrackIndex));
+            loadTrack();
 
             // Enable player buttons
             playpauseButton.setDisable(false);
@@ -94,7 +97,7 @@ public class MP3View implements Initializable {
     }
 
     @FXML
-    public void playpauseClicked (ActionEvent event) {
+    public void playpauseClicked(ActionEvent event) {
 
         if (mpthreePlayer != null) {
             MediaPlayer.Status status = mpthreePlayer.getStatus();
@@ -115,7 +118,7 @@ public class MP3View implements Initializable {
     }
 
     @FXML
-    public void stopClicked (ActionEvent event) {
+    public void stopClicked(ActionEvent event) {
 
         mpthreePlayer.stop();
         System.out.println("Stop Clicked");
@@ -126,39 +129,147 @@ public class MP3View implements Initializable {
     }
 
     @FXML
-    public void skipbackClicked (ActionEvent event) {
+    public void skipbackClicked(ActionEvent event) {
 
+        System.out.println("Current Track Index: " + trackList.get(currentTrackIndex));
         System.out.println("Skip To Previous Track Clicked");
+
+        if (!trackList.isEmpty() && currentTrackIndex < trackList.size() - 1 && currentTrackIndex > 0 || currentTrackIndex == trackList.size() - 1) {
+
+            mpthreePlayer.stop();
+            currentTrackIndex--;
+            loadTrack();
+
+        } else if (!trackList.isEmpty() && currentTrackIndex == 0) {
+            mpthreePlayer.stop();
+            currentTrackIndex = 0;
+            loadTrack();
+        }
     }
 
     @FXML
-    public void skipbeginningClicked (ActionEvent event) {
+    public void skipbeginningClicked(ActionEvent event) {
 
         System.out.println("Skip To Beginning");
+
+        mpthreePlayer.seek(Duration.ZERO);
     }
 
     @FXML
-    public void skipendingClicked (ActionEvent event) {
+    public void skipendingClicked(ActionEvent event) {
 
         System.out.println("Skip To End Clicked");
+
+        Duration endTime = mpthreePlayer.getTotalDuration();
+        mpthreePlayer.seek(endTime);
+
+
     }
 
     @FXML
-    public void skipforwardClicked (ActionEvent event) {
+    public void skipforwardClicked(ActionEvent event) {
 
+        System.out.println("Current Track Index: " + trackList.get(currentTrackIndex));
         System.out.println("Skip To Next Track Clicked");
+
+        if (!trackList.isEmpty() && currentTrackIndex < trackList.size() - 1) {
+
+            mpthreePlayer.stop();
+            currentTrackIndex++;
+            loadTrack();
+
+        } else if (!trackList.isEmpty() && currentTrackIndex >= trackList.size() - 1) {
+            mpthreePlayer.stop();
+            currentTrackIndex = 0;
+            loadTrack();
+        }
     }
 
     @FXML
-    public void volumeControl (ActionEvent event) {
+    public void volumeControl(MouseEvent event) {
+
+        if (mpthreePlayer != null) {
+            double volume = volumeSlider.getValue() / 100.0;
+            mpthreePlayer.setVolume(volume);
+        }
+
 
     }
 
     @FXML
-    public void muteClicked (ActionEvent event) {
+    public void muteClicked(ActionEvent event) {
 
+        if (mpthreePlayer != null) {
+            if (!mpthreePlayer.isMute()) {
+                mpthreePlayer.setMute(true);
+            } else {
+                mpthreePlayer.setMute(false);
+            }
+        }
     }
 
+    public void loadTrack() {
 
+        boolean isPLaying = (mpthreePlayer != null && mpthreePlayer.getStatus() == MediaPlayer.Status.PLAYING);
+        boolean isMuted = (mpthreePlayer != null && mpthreePlayer.isMute());
+        double getVolume = 1.00;
 
+        if (mpthreePlayer != null) {
+            getVolume = mpthreePlayer.getVolume();
+            mpthreePlayer.stop();
+            mpthreePlayer.dispose();
+        }
+
+        mpthreeMedia = new Media(trackList.get(currentTrackIndex));
+        mpthreePlayer = new MediaPlayer(mpthreeMedia);
+
+        // Set the song title to current track
+        String fullPath = trackList.get(currentTrackIndex);
+        try {
+            URL url = new URL(fullPath);
+            String path = url.getPath();
+            String fileName = path.substring(path.lastIndexOf('/') + 1);
+            songTitle.setText(fileName);
+        } catch (Exception e) {
+            songTitle.setText("Unknown Track");
+        }
+
+        mpthreePlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+            Duration total = mpthreePlayer.getTotalDuration();
+            if (total != null && total.toMillis() > 0) {
+                double progress = newTime.toMillis() / total.toMillis();
+                progressBar.setProgress(progress);
+            } else {
+                progressBar.setProgress(0);
+            }
+        });
+
+        progressBar.setOnMousePressed(event -> seekFromProgress(event));
+
+        System.out.println("Current Track Loaded: " + trackList.get(currentTrackIndex));
+
+        if (isPLaying) {
+            mpthreePlayer.setVolume(getVolume);
+            mpthreePlayer.play();
+        }
+
+        if (isMuted) {
+            mpthreePlayer.setMute(true);
+        }
+    }
+
+    public void seekFromProgress (MouseEvent event) {
+        if (mpthreePlayer != null) {
+            Duration total = mpthreePlayer.getTotalDuration();
+            if (total != null && total.toMillis() > 0) {
+                double mouseX = event.getX();
+                double width = progressBar.getWidth();
+                double fraction = mouseX / width;
+                if (fraction < 0) fraction = 0;
+                if (fraction > 1) fraction = 1;
+                Duration seekTime = total.multiply(fraction);
+                mpthreePlayer.seek(seekTime);
+            }
+        }
+    }
 }

@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="720.0" styleClass="player-background" stylesheets="@../css/default.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mp3player.MP3View">
    <children>
-      <Label alignment="CENTER" layoutX="14.0" layoutY="24.0" prefHeight="143.0" prefWidth="511.0" styleClass="display-window" stylesheets="@../css/default.css" text="Song Title" textAlignment="RIGHT" textFill="#44d8ff">
+      <Label fx:id="songTitle" alignment="CENTER" layoutX="14.0" layoutY="24.0" prefHeight="143.0" prefWidth="511.0" styleClass="display-window" stylesheets="@../css/default.css" text="Song Title" textAlignment="RIGHT" textFill="#44d8ff">
          <font>
             <Font size="23.0" />
          </font>
@@ -58,7 +58,7 @@
             <Font name="MediaPlayer" size="160.0" />
          </font>
       </Label>
-      <Slider fx:id="volumeSlider" disable="true" layoutX="568.0" layoutY="168.0" prefHeight="14.0" prefWidth="113.0" />
+      <Slider fx:id="volumeSlider" disable="true" layoutX="568.0" layoutY="168.0" onMouseDragReleased="#volumeControl" onMouseDragged="#volumeControl" prefHeight="14.0" prefWidth="113.0" value="50.0" />
       <Button fx:id="muteButton" disable="true" layoutX="586.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#muteClicked" prefHeight="35.0" prefWidth="80.0" styleClass="default-button" stylesheets="@../css/default.css" text="M" textAlignment="CENTER" textOverrun="CLIP">
          <font>
             <Font name="MediaPlayer" size="26.0" />
