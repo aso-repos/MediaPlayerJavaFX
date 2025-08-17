@@ -1,4 +1,4 @@
-# 🎶 MediaPlayerJavaFX  
+# 🎶📀 MediaPlayerJavaFX  
 
 ## 📌 Goal  
 The goal of this project is to create an **MP3 player** as the first module of a larger **Media Player system**, designed and styled in a traditional *hi-fi stack* format. Each module (MP3, video, image viewer, etc.) will look like a classic hi-fi component but remain fully interconnected in software.  
