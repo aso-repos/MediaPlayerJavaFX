@@ -120,7 +120,9 @@ public class MP3View implements Initializable {
     @FXML
     public void stopClicked(ActionEvent event) {
 
-        mpthreePlayer.stop();
+        if (mpthreePlayer != null) {
+            mpthreePlayer.stop();
+        }
         System.out.println("Stop Clicked");
 
         stopButton.setDisable(true);
@@ -134,15 +136,13 @@ public class MP3View implements Initializable {
         System.out.println("Current Track Index: " + trackList.get(currentTrackIndex));
         System.out.println("Skip To Previous Track Clicked");
 
-        if (!trackList.isEmpty() && currentTrackIndex < trackList.size() - 1 && currentTrackIndex > 0 || currentTrackIndex == trackList.size() - 1) {
-
+        if (!trackList.isEmpty()) {
             mpthreePlayer.stop();
-            currentTrackIndex--;
-            loadTrack();
-
-        } else if (!trackList.isEmpty() && currentTrackIndex == 0) {
-            mpthreePlayer.stop();
-            currentTrackIndex = 0;
+            if (currentTrackIndex > 0) {
+                currentTrackIndex--;
+            } else {
+                currentTrackIndex = trackList.size() - 1;
+            }
             loadTrack();
         }
     }
@@ -152,7 +152,9 @@ public class MP3View implements Initializable {
 
         System.out.println("Skip To Beginning");
 
-        mpthreePlayer.seek(Duration.ZERO);
+        if (mpthreePlayer != null) {
+            mpthreePlayer.seek(Duration.ZERO);
+        }
     }
 
     @FXML
@@ -160,10 +162,12 @@ public class MP3View implements Initializable {
 
         System.out.println("Skip To End Clicked");
 
-        Duration endTime = mpthreePlayer.getTotalDuration();
-        mpthreePlayer.seek(endTime);
-
-
+        if (mpthreePlayer != null) {
+            Duration endTime = mpthreePlayer.getTotalDuration();
+            if (endTime != null && endTime.greaterThan(Duration.ZERO)) {
+                mpthreePlayer.seek(endTime);
+            }
+        }
     }
 
     @FXML
@@ -192,8 +196,6 @@ public class MP3View implements Initializable {
             double volume = volumeSlider.getValue() / 100.0;
             mpthreePlayer.setVolume(volume);
         }
-
-
     }
 
     @FXML
@@ -222,6 +224,29 @@ public class MP3View implements Initializable {
 
         mpthreeMedia = new Media(trackList.get(currentTrackIndex));
         mpthreePlayer = new MediaPlayer(mpthreeMedia);
+
+        // Listens for track-end and go to/play next track (lambda expression)
+        mpthreePlayer.setOnEndOfMedia(() -> {
+            currentTrackIndex++;
+            if (currentTrackIndex >= trackList.size()) {
+                currentTrackIndex = 0;
+            }
+            loadTrack();
+            mpthreePlayer.play();
+        });
+
+        // THe long "beginner friendly" version of above task
+//        mpthreePlayer.setOnEndOfMedia(new Runnable() {
+//            @Override
+//            public void run() {
+//                currentTrackIndex++;
+//                if (currentTrackIndex >= trackList.size()) {
+//                    currentTrackIndex = 0;
+//                }
+//                loadTrack();
+//                mpthreePlayer.play();
+//            }
+//        });
 
         // Set the song title to current track
         String fullPath = trackList.get(currentTrackIndex);
