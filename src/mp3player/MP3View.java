@@ -86,6 +86,7 @@ public class MP3View implements Initializable {
         }
     }
 
+    // Implement play/pause button
     @FXML
     public void playpauseClicked(ActionEvent event) {
 
@@ -102,6 +103,7 @@ public class MP3View implements Initializable {
         }
     }
 
+    // Implement stop button
     @FXML
     public void stopClicked(ActionEvent event) {
 
@@ -111,6 +113,7 @@ public class MP3View implements Initializable {
         System.out.println("Stop Clicked");
     }
 
+    // Implement skip-to-previous track button
     @FXML
     public void skipbackClicked(ActionEvent event) {
 
@@ -128,6 +131,7 @@ public class MP3View implements Initializable {
         }
     }
 
+    // Implement skip-to-beginning button
     @FXML
     public void skipbeginningClicked(ActionEvent event) {
 
@@ -138,6 +142,7 @@ public class MP3View implements Initializable {
         }
     }
 
+    // Implement skip-to-ending button
     @FXML
     public void skipendingClicked(ActionEvent event) {
 
@@ -151,6 +156,7 @@ public class MP3View implements Initializable {
         }
     }
 
+    // Implement skip-to-next track button
     @FXML
     public void skipforwardClicked(ActionEvent event) {
 
@@ -170,6 +176,7 @@ public class MP3View implements Initializable {
         }
     }
 
+    // Implement volume control slider
     @FXML
     public void volumeControl(MouseEvent event) {
 
@@ -179,6 +186,7 @@ public class MP3View implements Initializable {
         }
     }
 
+    // Implement mute button
     @FXML
     public void muteClicked(ActionEvent event) {
 
@@ -191,6 +199,10 @@ public class MP3View implements Initializable {
         }
     }
 
+    /* Helper method to set the state of the player under different conditions
+    - Set up display for track
+    - Set up progress bar
+     */
     public void loadTrack() {
 
         boolean isPlaying = (mpthreePlayer != null && mpthreePlayer.getStatus() == MediaPlayer.Status.PLAYING);
@@ -246,6 +258,7 @@ public class MP3View implements Initializable {
             songTitle.setText("Unknown Track");
         }
 
+        // Set up progress bar and add listener for track time
         mpthreePlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
             Duration total = mpthreePlayer.getTotalDuration();
             if (total != null && total.toMillis() > 0) {
@@ -270,6 +283,7 @@ public class MP3View implements Initializable {
         }
     }
 
+    // Helper method to set up progress bar and handle progress bar logic
     public void seekFromProgress (MouseEvent event) {
         if (mpthreePlayer != null) {
             Duration total = mpthreePlayer.getTotalDuration();
