@@ -14,6 +14,8 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -81,18 +83,6 @@ public class MP3View implements Initializable {
         //Check that trackList not empty and load current track into MediaPlayer
         if (!trackList.isEmpty()) {
             loadTrack();
-
-            // Enable player buttons
-            playpauseButton.setDisable(false);
-            progressBar.setDisable(false);
-            volumeSlider.setDisable(false);
-            muteButton.setDisable(false);
-
-            // Enable skipping only if multiple tracks are available
-            if (trackList.size() > 1) {
-                skipbackButton.setDisable(false);
-                skipforwardButton.setDisable(false);
-            }
         }
     }
 
@@ -108,11 +98,6 @@ public class MP3View implements Initializable {
             } else {
                 mpthreePlayer.play();
                 System.out.println("PLAYING");
-
-                // Enable rest of buttons used during playing
-                stopButton.setDisable(false);
-                skipbeginningButton.setDisable(false);
-                skipendingButton.setDisable(false);
             }
         }
     }
@@ -124,16 +109,12 @@ public class MP3View implements Initializable {
             mpthreePlayer.stop();
         }
         System.out.println("Stop Clicked");
-
-        stopButton.setDisable(true);
-        skipbeginningButton.setDisable(true);
-        skipendingButton.setDisable(true);
     }
 
     @FXML
     public void skipbackClicked(ActionEvent event) {
 
-        System.out.println("Current Track Index: " + trackList.get(currentTrackIndex));
+        System.out.println("Current Track: " + trackList.get(currentTrackIndex));
         System.out.println("Skip To Previous Track Clicked");
 
         if (!trackList.isEmpty()) {
@@ -173,7 +154,7 @@ public class MP3View implements Initializable {
     @FXML
     public void skipforwardClicked(ActionEvent event) {
 
-        System.out.println("Current Track Index: " + trackList.get(currentTrackIndex));
+        System.out.println("Current Track: " + trackList.get(currentTrackIndex));
         System.out.println("Skip To Next Track Clicked");
 
         if (!trackList.isEmpty() && currentTrackIndex < trackList.size() - 1) {
@@ -212,18 +193,23 @@ public class MP3View implements Initializable {
 
     public void loadTrack() {
 
-        boolean isPLaying = (mpthreePlayer != null && mpthreePlayer.getStatus() == MediaPlayer.Status.PLAYING);
+        boolean isPlaying = (mpthreePlayer != null && mpthreePlayer.getStatus() == MediaPlayer.Status.PLAYING);
         boolean isMuted = (mpthreePlayer != null && mpthreePlayer.isMute());
-        double getVolume = 1.00;
 
+        double getVolume;
         if (mpthreePlayer != null) {
             getVolume = mpthreePlayer.getVolume();
             mpthreePlayer.stop();
             mpthreePlayer.dispose();
+        } else {
+            getVolume = volumeSlider.getValue() / 100;
         }
 
         mpthreeMedia = new Media(trackList.get(currentTrackIndex));
         mpthreePlayer = new MediaPlayer(mpthreeMedia);
+
+        mpthreePlayer.setVolume(getVolume);
+        volumeSlider.setValue(getVolume * 100);
 
         // Listens for track-end and go to/play next track (lambda expression)
         mpthreePlayer.setOnEndOfMedia(() -> {
@@ -235,7 +221,7 @@ public class MP3View implements Initializable {
             mpthreePlayer.play();
         });
 
-        // THe long "beginner friendly" version of above task
+        // The long "beginner friendly" version of above task
 //        mpthreePlayer.setOnEndOfMedia(new Runnable() {
 //            @Override
 //            public void run() {
@@ -254,6 +240,7 @@ public class MP3View implements Initializable {
             URL url = new URL(fullPath);
             String path = url.getPath();
             String fileName = path.substring(path.lastIndexOf('/') + 1);
+            fileName = URLDecoder.decode(fileName, StandardCharsets.UTF_8);
             songTitle.setText(fileName);
         } catch (Exception e) {
             songTitle.setText("Unknown Track");
@@ -270,11 +257,11 @@ public class MP3View implements Initializable {
         });
 
         progressBar.setOnMousePressed(event -> seekFromProgress(event));
+        progressBar.setOnMouseDragged(event -> seekFromProgress(event));
 
-        System.out.println("Current Track Loaded: " + trackList.get(currentTrackIndex));
+        System.out.println("Current Track: " + trackList.get(currentTrackIndex));
 
-        if (isPLaying) {
-            mpthreePlayer.setVolume(getVolume);
+        if (isPlaying) {
             mpthreePlayer.play();
         }
 
