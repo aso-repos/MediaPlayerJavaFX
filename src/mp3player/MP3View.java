@@ -42,6 +42,7 @@ public class MP3View implements Initializable {
     private Slider volumeSlider;
     @FXML
     private Label songTitle;
+    @FXML Label timerLabel;
 
     private int currentTrackIndex = 0;
     private List<String> trackList = new ArrayList<>();
