@@ -10,6 +10,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
@@ -17,8 +18,10 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.scene.media.AudioSpectrumListener;
 
 public class MP3View implements Initializable {
 
@@ -42,13 +45,49 @@ public class MP3View implements Initializable {
     private Slider volumeSlider;
     @FXML
     private Label songTitle;
-    @FXML Label timerLabel;
+    @FXML
+    Label timerLabel;
+    @FXML
+    Rectangle eqBar0;
+    @FXML
+    Rectangle eqBar1;
+    @FXML
+    Rectangle eqBar2;
+    @FXML
+    Rectangle eqBar3;
+    @FXML
+    Rectangle eqBar4;
+    @FXML
+    Rectangle eqBar5;
+    @FXML
+    Rectangle eqBar6;
+    @FXML
+    Rectangle eqBar7;
+    @FXML
+    Rectangle eqBar8;
+    @FXML
+    Rectangle eqBar9;
+    @FXML
+    Rectangle eqBar10;
+    @FXML
+    Rectangle eqBar11;
+    @FXML
+    Rectangle eqBar12;
+    @FXML
+    Rectangle eqBar13;
+    @FXML
+    Rectangle eqBar14;
+    @FXML
+    Rectangle eqBar15;
+    @FXML
 
     private int currentTrackIndex = 0;
     private List<String> trackList = new ArrayList<>();
     private Media mpthreeMedia;
     private MediaPlayer mpthreePlayer;
 
+    // Create ArrayList for all EQ bars
+    private List<Rectangle> eqBars;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -81,10 +120,16 @@ public class MP3View implements Initializable {
             System.out.println("No Tracks Loaded");
         }
 
-        //Check that trackList not empty and load current track into MediaPlayer
+        // Check that trackList not empty and load current track into MediaPlayer
         if (!trackList.isEmpty()) {
             loadTrack();
         }
+
+        // Add EQ bars to ArrayList
+        eqBars = new ArrayList<>(Arrays.asList(eqBar0, eqBar1, eqBar2, eqBar3,
+                        eqBar4, eqBar5, eqBar6, eqBar7,
+                        eqBar8, eqBar9, eqBar10, eqBar11,
+                        eqBar12, eqBar13, eqBar14, eqBar15));
     }
 
     // Implement play/pause button
@@ -220,6 +265,23 @@ public class MP3View implements Initializable {
 
         mpthreeMedia = new Media(trackList.get(currentTrackIndex));
         mpthreePlayer = new MediaPlayer(mpthreeMedia);
+
+        // Set up number of EQ bands for AudioSpectrumListener
+        mpthreePlayer.setAudioSpectrumNumBands(16);
+        mpthreePlayer.setAudioSpectrumInterval(0.05);
+        mpthreePlayer.setAudioSpectrumListener((timestamp, duration, magnitudes, phase) -> {
+            for (int i = 0; i < eqBars.size(); i++) {
+                Rectangle bar = eqBars.get(i);
+                double height = magnitudes[i] + 60;
+                if (height < 2) {
+                    height = 2;
+                }
+                double scaledHeight = height * 1.5;
+                double baseline = bar.getY() + bar.getHeight();
+                eqBars.get(i).setHeight(scaledHeight);
+                eqBars.get(i).setY(baseline - scaledHeight);
+            }
+        });
 
         mpthreePlayer.setVolume(getVolume);
         volumeSlider.setValue(getVolume * 100);

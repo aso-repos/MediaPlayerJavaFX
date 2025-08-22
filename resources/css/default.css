@@ -16,3 +16,7 @@
     -fx-color: #44d8ff;
     -fx-border-color: #000000;
 }
+
+.eqBarFill {
+    -fx-fill: image-pattern("/images/eq_light_bar.png", 0, 0, 26, 4, false);
+}

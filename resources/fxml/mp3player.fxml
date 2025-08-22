@@ -7,6 +7,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="720.0" styleClass="player-background" stylesheets="@../css/default.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mp3player.MP3View">
@@ -73,11 +74,27 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <ImageView fitHeight="83.0" fitWidth="508.0" layoutX="3.0" layoutY="61.0" pickOnBounds="true">
+            <ImageView fitHeight="76.0" fitWidth="497.0" layoutX="11.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/eq_bar.png" />
                </image>
             </ImageView>
+            <Rectangle fx:id="eqBar0" fill="DODGERBLUE" height="4.0" layoutX="11.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar1" fill="DODGERBLUE" height="4.0" layoutX="42.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar2" fill="DODGERBLUE" height="4.0" layoutX="73.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar3" fill="DODGERBLUE" height="4.0" layoutX="104.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar4" fill="DODGERBLUE" height="4.0" layoutX="135.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar5" fill="DODGERBLUE" height="4.0" layoutX="166.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar6" fill="DODGERBLUE" height="4.0" layoutX="197.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar7" fill="DODGERBLUE" height="4.0" layoutX="228.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar8" fill="DODGERBLUE" height="4.0" layoutX="259.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar9" fill="DODGERBLUE" height="4.0" layoutX="290.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar10" fill="DODGERBLUE" height="4.0" layoutX="321.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar11" fill="DODGERBLUE" height="4.0" layoutX="352.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar12" fill="DODGERBLUE" height="4.0" layoutX="384.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar13" fill="DODGERBLUE" height="4.0" layoutX="414.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar14" fill="DODGERBLUE" height="4.0" layoutX="445.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar15" fill="DODGERBLUE" height="4.0" layoutX="476.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
          </children>
       </AnchorPane>
    </children>
