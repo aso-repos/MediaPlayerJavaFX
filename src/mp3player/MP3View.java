@@ -266,6 +266,12 @@ public class MP3View implements Initializable {
         mpthreeMedia = new Media(trackList.get(currentTrackIndex));
         mpthreePlayer = new MediaPlayer(mpthreeMedia);
 
+        // Set initial elapsed/total time for timerLabel
+        mpthreePlayer.setOnReady(() -> {
+            Object realTitle = mpthreeMedia.getMetadata().get("title");
+            timerLabel.setText(timeFormat(Duration.ZERO) +"/" + timeFormat(mpthreePlayer.getTotalDuration()));
+        });
+
         // Set up number of EQ bands for AudioSpectrumListener
         mpthreePlayer.setAudioSpectrumNumBands(16);
         mpthreePlayer.setAudioSpectrumInterval(0.05);
@@ -327,6 +333,10 @@ public class MP3View implements Initializable {
             if (total != null && total.toMillis() > 0) {
                 double progress = newTime.toMillis() / total.toMillis();
                 progressBar.setProgress(progress);
+
+                // Set up elapsed/total time for timerLabel
+                timerLabel.setText(timeFormat(newTime) + "/" + timeFormat(total));
+
             } else {
                 progressBar.setProgress(0);
             }
@@ -360,5 +370,13 @@ public class MP3View implements Initializable {
                 mpthreePlayer.seek(seekTime);
             }
         }
+    }
+     // Helper method for displaying elapsed/total time
+    public String timeFormat (Duration time) {
+
+        int minutes = (int) time.toMinutes();
+        int seconds = (int) (time.toSeconds() % 60);
+
+        return String.format("%02d:%02d", minutes, seconds);
     }
 }
