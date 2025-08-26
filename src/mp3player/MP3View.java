@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.scene.media.AudioSpectrumListener;
 
 public class MP3View implements Initializable {
 
@@ -39,6 +38,10 @@ public class MP3View implements Initializable {
     private Button skipendingButton;
     @FXML
     private Button muteButton;
+    @FXML
+    private Button closeButton;
+    @FXML
+    private Button sourceButton;
     @FXML
     private ProgressBar progressBar;
     @FXML
@@ -92,7 +95,8 @@ public class MP3View implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        Font.loadFont(getClass().getResourceAsStream("/MediaPlayer.ttf"), 12);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/MediaPlayer.ttf"), 12);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/MatrixCustom.ttf"), 12);
 
         String[] testFiles = {"/music/Blue_Giraffe_-_Epic_Trailer_Inspire.mp3",
                 "/music/Metal Impact Sound Effects - Sample Library.mp3",
@@ -243,6 +247,16 @@ public class MP3View implements Initializable {
                 mpthreePlayer.setMute(false);
             }
         }
+    }
+
+    @FXML
+    public void sourceClicked (ActionEvent event) {
+
+    }
+
+    @FXML
+    public void closeClicked (ActionEvent event) {
+
     }
 
     /* Helper method to set the state of the player under different conditions

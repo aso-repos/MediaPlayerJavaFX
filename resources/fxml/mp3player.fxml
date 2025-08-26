@@ -62,16 +62,21 @@
             <Font name="MediaPlayer" size="26.0" />
          </font>
       </Button>
+      <Button fx:id="sourceButton" layoutX="545.0" layoutY="127.0" mnemonicParsing="false" onAction="#sourceClicked" prefHeight="23.0" prefWidth="65.0" text="SOURCE">
+         <font>
+            <Font name="Futura Md BT Medium" size="12.0" />
+         </font>
+      </Button>
       <AnchorPane layoutX="14.0" layoutY="23.0" prefHeight="145.0" prefWidth="513.0" style="-fx-background-color: #000000;" styleClass="display-window" stylesheets="@../css/default.css">
          <children>
-            <Label fx:id="songTitle" layoutX="15.0" layoutY="-9.0" prefHeight="58.0" prefWidth="350.0" text="Song Title" textFill="#44d8ff">
+            <Label fx:id="songTitle" cacheShape="false" layoutX="-20.0" prefHeight="58.0" prefWidth="413.0" styleClass="songTitle-display" stylesheets="@../css/default.css" text="Song Title" textFill="#44d8ff">
                <font>
-                  <Font size="20.0" />
+                  <Font name="MatrixCustom" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="timerLabel" alignment="CENTER_RIGHT" layoutX="324.0" layoutY="-9.0" prefHeight="58.0" prefWidth="174.0" text="2:08 / 5:26" textAlignment="RIGHT" textFill="#44d8ff">
+            <Label fx:id="timerLabel" alignment="CENTER_RIGHT" layoutX="331.0" prefHeight="58.0" prefWidth="174.0" text="2:08 / 5:26" textAlignment="RIGHT" textFill="#44d8ff">
                <font>
-                  <Font size="18.0" />
+                  <Font name="MatrixCustom" size="15.0" />
                </font>
             </Label>
             <ImageView fitHeight="76.0" fitWidth="497.0" layoutX="11.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
@@ -97,5 +102,10 @@
             <Rectangle fx:id="eqBar15" fill="DODGERBLUE" height="4.0" layoutX="476.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
          </children>
       </AnchorPane>
+      <Button fx:id="closeButton" layoutX="642.0" layoutY="127.0" mnemonicParsing="false" onAction="#closeClicked" prefHeight="19.0" prefWidth="59.0" text="CLOSE">
+         <font>
+            <Font name="Futura Md BT Medium" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

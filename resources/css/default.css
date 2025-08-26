@@ -20,3 +20,7 @@
 .eqBarFill {
     -fx-fill: image-pattern("/images/eq_light_bar.png", 0, 0, 26, 4, false);
 }
+
+.songTitle-display {
+    -fx-scale-x: 0.85;
+}
