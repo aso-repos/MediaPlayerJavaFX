@@ -3,17 +3,16 @@ package mp3player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -49,6 +48,8 @@ public class MP3View implements Initializable {
     @FXML
     private Label songTitle;
     @FXML
+    private ListView playlistView;
+    @FXML
     Label timerLabel;
     @FXML
     Rectangle eqBar0;
@@ -82,7 +83,6 @@ public class MP3View implements Initializable {
     Rectangle eqBar14;
     @FXML
     Rectangle eqBar15;
-    @FXML
 
     private int currentTrackIndex = 0;
     private List<String> trackList = new ArrayList<>();
@@ -134,6 +134,16 @@ public class MP3View implements Initializable {
                         eqBar4, eqBar5, eqBar6, eqBar7,
                         eqBar8, eqBar9, eqBar10, eqBar11,
                         eqBar12, eqBar13, eqBar14, eqBar15));
+
+        // Create listener for playListView
+        playlistView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null && newVal.intValue() >= 0) {
+                currentTrackIndex = newVal.intValue();
+                loadTrack();
+                mpthreePlayer.play();
+            }
+
+        });
     }
 
     // Implement play/pause button
@@ -251,6 +261,36 @@ public class MP3View implements Initializable {
 
     @FXML
     public void sourceClicked (ActionEvent event) {
+
+        // Choose a file first
+        FileChooser fileChooser = new FileChooser();
+
+        // Add MP3 extension filter
+        FileChooser.ExtensionFilter mp3Filter =
+                new FileChooser.ExtensionFilter("MP3 Files (*.mp3)", "*.mp3");
+        fileChooser.getExtensionFilters().add(mp3Filter);
+
+        // Allow multiple files to be selected
+        List<File> selectedFiles = fileChooser.showOpenMultipleDialog(sourceButton.getScene().getWindow());
+
+        // See if any files were selected
+        if (selectedFiles != null && !selectedFiles.isEmpty()) {
+
+            trackList.clear();
+            playlistView.getItems().clear();
+
+            for (File file: selectedFiles) {
+                String uri = file.toURI().toString();
+                trackList.add(uri);
+                playlistView.getItems().add(file.getName());
+                System.out.println("Files Added To Track List: " + file.getName());
+            }
+        } else {
+            System.out.println("No Files Selected");
+        }
+
+        currentTrackIndex = 0;
+        loadTrack();
 
     }
 
