@@ -297,6 +297,11 @@ public class MP3View implements Initializable {
     @FXML
     public void closeClicked (ActionEvent event) {
 
+        if (mpthreePlayer != null) {
+            mpthreePlayer.stop();
+            mpthreePlayer.dispose();
+        }
+        javafx.application.Platform.exit();
     }
 
     /* Helper method to set the state of the player under different conditions
@@ -377,6 +382,8 @@ public class MP3View implements Initializable {
             String fileName = path.substring(path.lastIndexOf('/') + 1);
             fileName = URLDecoder.decode(fileName, StandardCharsets.UTF_8);
             songTitle.setText(fileName);
+            playlistView.getSelectionModel().select(currentTrackIndex);
+            playlistView.scrollTo(currentTrackIndex);
         } catch (Exception e) {
             songTitle.setText("Unknown Track");
         }
