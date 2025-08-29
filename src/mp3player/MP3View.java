@@ -3,6 +3,7 @@ package mp3player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
@@ -92,6 +93,18 @@ public class MP3View implements Initializable {
     // Create ArrayList for all EQ bars
     private List<Rectangle> eqBars;
 
+    // File/Playlist Menu field declaration for "Source" button
+    private ContextMenu sourceMenu;
+    private MenuItem instantPlayItem;
+    private MenuItem instantBatchItem;
+    private MenuItem newPlaylistItem;
+    private MenuItem loadPlaylistItem;
+    private MenuItem savePlaylistItem;
+    private MenuItem deletePlaylistItem;
+    private MenuItem appendFilesItem;
+    private MenuItem replaceFilesItem;
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -134,6 +147,35 @@ public class MP3View implements Initializable {
                         eqBar4, eqBar5, eqBar6, eqBar7,
                         eqBar8, eqBar9, eqBar10, eqBar11,
                         eqBar12, eqBar13, eqBar14, eqBar15));
+
+        // Create the menu items for File/Playlist from "Source" button
+        instantPlayItem = new MenuItem("Instant Play (Single File)");
+        instantBatchItem = new MenuItem("Instant Batch (Multiple Files)");
+        newPlaylistItem = new MenuItem("New Playlist");
+        loadPlaylistItem = new MenuItem("Load Playlist");
+        savePlaylistItem = new MenuItem("Save Playlist");
+        deletePlaylistItem = new MenuItem("Delete Playlist");
+        appendFilesItem = new MenuItem("Append Files");
+        replaceFilesItem = new MenuItem("Replace Files");
+
+        // Create context menu for File/Playlist from "Source" button
+        sourceMenu = new ContextMenu(
+                instantPlayItem, instantBatchItem,
+                new SeparatorMenuItem(),
+                newPlaylistItem, loadPlaylistItem, savePlaylistItem, deletePlaylistItem,
+                new SeparatorMenuItem(),
+                appendFilesItem, replaceFilesItem
+        );
+
+        // Connect the menu items to their implementation methods
+        instantPlayItem.setOnAction(e -> onInstantPlaySingle());
+        instantBatchItem.setOnAction(e -> onInstantPlayBatch());
+        newPlaylistItem.setOnAction(e -> onNewPlaylist());
+        loadPlaylistItem.setOnAction(e -> onLoadPlaylist());
+        savePlaylistItem.setOnAction(e -> onSavePlaylist());
+        deletePlaylistItem.setOnAction(e -> onDeletePlaylist());
+        appendFilesItem.setOnAction(e -> onAppendFiles());
+        replaceFilesItem.setOnAction(e -> onReplaceFiles());
 
         // Create listener for playListView
         playlistView.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> {
@@ -261,37 +303,7 @@ public class MP3View implements Initializable {
 
     @FXML
     public void sourceClicked (ActionEvent event) {
-
-        // Choose a file first
-        FileChooser fileChooser = new FileChooser();
-
-        // Add MP3 extension filter
-        FileChooser.ExtensionFilter mp3Filter =
-                new FileChooser.ExtensionFilter("MP3 Files (*.mp3)", "*.mp3");
-        fileChooser.getExtensionFilters().add(mp3Filter);
-
-        // Allow multiple files to be selected
-        List<File> selectedFiles = fileChooser.showOpenMultipleDialog(sourceButton.getScene().getWindow());
-
-        // See if any files were selected
-        if (selectedFiles != null && !selectedFiles.isEmpty()) {
-
-            trackList.clear();
-            playlistView.getItems().clear();
-
-            for (File file: selectedFiles) {
-                String uri = file.toURI().toString();
-                trackList.add(uri);
-                playlistView.getItems().add(file.getName());
-                System.out.println("Files Added To Track List: " + file.getName());
-            }
-        } else {
-            System.out.println("No Files Selected");
-        }
-
-        currentTrackIndex = 0;
-        loadTrack();
-
+        sourceMenu.show(sourceButton, Side.BOTTOM, 0,0);
     }
 
     @FXML
@@ -302,6 +314,41 @@ public class MP3View implements Initializable {
             mpthreePlayer.dispose();
         }
         javafx.application.Platform.exit();
+    }
+
+    /* Set up methods for implementing menu items in the File/Playlist menu
+    triggered by "Source" button */
+
+    public void onInstantPlaySingle () {
+        System.out.println("Quick Play");
+    }
+
+    public void onInstantPlayBatch () {
+        System.out.println("Quick Play");
+    }
+
+    public void onNewPlaylist () {
+        System.out.println("New Playlist");
+    }
+
+    public void onLoadPlaylist () {
+        System.out.println("Load Playlist");
+    }
+
+    public void onSavePlaylist () {
+        System.out.println("Save PlayList");
+    }
+
+    public void onDeletePlaylist () {
+        System.out.println("Delete Playlist");
+    }
+
+    public void onAppendFiles () {
+        System.out.println("Append Files");
+    }
+
+    public void onReplaceFiles () {
+        System.out.println("Replace Files");
     }
 
     /* Helper method to set the state of the player under different conditions
