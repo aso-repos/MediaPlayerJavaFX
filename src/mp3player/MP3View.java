@@ -104,6 +104,10 @@ public class MP3View implements Initializable {
     private MenuItem appendFilesItem;
     private MenuItem replaceFilesItem;
 
+    // Fields for instant batch
+    private List<String> instantBatchUri;
+    private List<File> instantBatchFiles;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -319,12 +323,72 @@ public class MP3View implements Initializable {
     /* Set up methods for implementing menu items in the File/Playlist menu
     triggered by "Source" button */
 
+    // Instantly play track without affecting trackList
     public void onInstantPlaySingle () {
-        System.out.println("Quick Play");
+
+        // Choose a file first
+        FileChooser fileChooser = new FileChooser();
+
+        // Add MP3 extension filter
+        FileChooser.ExtensionFilter mp3Filter =
+                new FileChooser.ExtensionFilter("MP3 Files (*.mp3)", "*.mp3");
+        fileChooser.getExtensionFilters().add(mp3Filter);
+
+        // Choose single file
+        File selectedFile = fileChooser.showOpenDialog(sourceButton.getScene().getWindow());
+
+        if (selectedFile != null) {
+            String uri = selectedFile.toURI().toString();
+
+            // Remove old player if it's active
+            if (mpthreePlayer != null) {
+                mpthreePlayer.stop();
+                mpthreePlayer.dispose();
+            }
+
+            List<String> tempList = new ArrayList<>();
+            tempList.add(uri);
+
+            loadTrackBatch(tempList, 0);
+
+        } else {
+            System.out.println("No Files Selected");
+        }
+
+        System.out.println("Instant Play");
     }
 
+    // Instantly play multiple tracks without affecting trackList
     public void onInstantPlayBatch () {
-        System.out.println("Quick Play");
+
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter mp3Filter =
+                new FileChooser.ExtensionFilter("MP3 Files (*.mp3)", "*.mp3");
+        fileChooser.getExtensionFilters().add(mp3Filter);
+
+        // Pick multiple files
+        List<File> selectedFiles = fileChooser.showOpenMultipleDialog(sourceButton.getScene().getWindow());
+
+        // Remove old player if it's active
+        if (selectedFiles != null && !selectedFiles.isEmpty()) {
+            if (mpthreePlayer != null) {
+                mpthreePlayer.stop();
+                mpthreePlayer.dispose();
+            }
+
+
+            // Build temporary list
+            List<String> tempList = new ArrayList<>();
+            for (File file : selectedFiles) {
+                tempList.add(file.toURI().toString());
+            }
+
+            loadTrackBatch(tempList, 0);
+
+            System.out.println("Instant Batch Playing Started: " + selectedFiles.size());
+        } else {
+            System.out.println("No Selected Files");
+        }
     }
 
     public void onNewPlaylist () {
@@ -344,10 +408,70 @@ public class MP3View implements Initializable {
     }
 
     public void onAppendFiles () {
+
+        // Choose a file first
+        FileChooser fileChooser = new FileChooser();
+
+        // Add MP3 extension filter
+        FileChooser.ExtensionFilter mp3Filter =
+                new FileChooser.ExtensionFilter("MP3 Files (*.mp3)", "*.mp3");
+        fileChooser.getExtensionFilters().add(mp3Filter);
+
+        // Allow multiple files to be selected
+        List<File> selectedFiles = fileChooser.showOpenMultipleDialog(sourceButton.getScene().getWindow());
+
+        // See if any files were selected
+        if (selectedFiles != null && !selectedFiles.isEmpty()) {
+            for (File file: selectedFiles) {
+                String uri = file.toURI().toString();
+                trackList.add(uri);
+                playlistView.getItems().add(file.getName());
+                System.out.println("Files Added To Track List: " + file.getName());
+            }
+
+            // Set index to first newly selected file
+            if (mpthreePlayer == null && !trackList.isEmpty()) {
+                currentTrackIndex = trackList.size() - selectedFiles.size();
+                loadTrack();
+            }
+        } else {
+            System.out.println("No Files Selected");
+        }
+
         System.out.println("Append Files");
     }
 
     public void onReplaceFiles () {
+
+        // Choose a file first
+        FileChooser fileChooser = new FileChooser();
+
+        // Add MP3 extension filter
+        FileChooser.ExtensionFilter mp3Filter =
+                new FileChooser.ExtensionFilter("MP3 Files (*.mp3)", "*.mp3");
+        fileChooser.getExtensionFilters().add(mp3Filter);
+
+        // Allow multiple files to be selected
+        List<File> selectedFiles = fileChooser.showOpenMultipleDialog(sourceButton.getScene().getWindow());
+
+        // See if any files were selected
+        if (selectedFiles != null && !selectedFiles.isEmpty()) {
+
+            trackList.clear();
+            playlistView.getItems().clear();
+
+            for (File file: selectedFiles) {
+                String uri = file.toURI().toString();
+                trackList.add(uri);
+                playlistView.getItems().add(file.getName());
+                System.out.println("Files Added To Track List: " + file.getName());
+            }
+        } else {
+            System.out.println("No Files Selected");
+        }
+
+        currentTrackIndex = 0;
+        loadTrack();
         System.out.println("Replace Files");
     }
 
@@ -462,6 +586,117 @@ public class MP3View implements Initializable {
         if (isMuted) {
             mpthreePlayer.setMute(true);
         }
+    }
+
+    // Modified loadTrack method for Instant Batch Playing
+    public void loadTrackBatch(List<String> tempList, int tempIndex) {
+
+        boolean isPlaying = (mpthreePlayer != null && mpthreePlayer.getStatus() == MediaPlayer.Status.PLAYING);
+        boolean isMuted = (mpthreePlayer != null && mpthreePlayer.isMute());
+
+        double getVolume;
+        if (mpthreePlayer != null) {
+            getVolume = mpthreePlayer.getVolume();
+            mpthreePlayer.stop();
+            mpthreePlayer.dispose();
+        } else {
+            getVolume = volumeSlider.getValue() / 100;
+        }
+
+        mpthreeMedia = new Media(tempList.get(tempIndex));
+        mpthreePlayer = new MediaPlayer(mpthreeMedia);
+
+        // Set initial elapsed/total time for timerLabel
+        mpthreePlayer.setOnReady(() -> {
+            Object realTitle = mpthreeMedia.getMetadata().get("title");
+            timerLabel.setText(timeFormat(Duration.ZERO) +"/" + timeFormat(mpthreePlayer.getTotalDuration()));
+        });
+
+        // Set up number of EQ bands for AudioSpectrumListener
+        mpthreePlayer.setAudioSpectrumNumBands(16);
+        mpthreePlayer.setAudioSpectrumInterval(0.05);
+        mpthreePlayer.setAudioSpectrumListener((timestamp, duration, magnitudes, phase) -> {
+            for (int i = 0; i < eqBars.size(); i++) {
+                Rectangle bar = eqBars.get(i);
+                double height = magnitudes[i] + 60;
+                if (height < 2) {
+                    height = 2;
+                }
+                double scaledHeight = height * 1.5;
+                double baseline = bar.getY() + bar.getHeight();
+                eqBars.get(i).setHeight(scaledHeight);
+                eqBars.get(i).setY(baseline - scaledHeight);
+            }
+        });
+
+        mpthreePlayer.setVolume(getVolume);
+        volumeSlider.setValue(getVolume * 100);
+
+        // Listens for track-end and go to/play next track (lambda expression)
+        final int[] indexWrapper = {tempIndex};
+        mpthreePlayer.setOnEndOfMedia(() -> {
+            indexWrapper[0]++;
+            if (indexWrapper[0] < tempList.size()) {
+                loadTrackBatch(tempList, indexWrapper[0]);
+                mpthreePlayer.play();
+            } else {
+                System.out.println("Instant Batch Finished Playing");
+            }
+        });
+
+        // The long "beginner friendly" version of above task
+//        mpthreePlayer.setOnEndOfMedia(new Runnable() {
+//            @Override
+//            public void run() {
+//                tempIndex++;
+//                if (tempIndex >= tempList.size()) {
+//                    tempIndex = 0;
+//                }
+//                loadTrack();
+//                mpthreePlayer.play();
+//            }
+//        });
+
+        // Set the song title to current track
+        String fullPath = tempList.get(tempIndex);
+        try {
+            URL url = new URL(fullPath);
+            String path = url.getPath();
+            String fileName = path.substring(path.lastIndexOf('/') + 1);
+            fileName = URLDecoder.decode(fileName, StandardCharsets.UTF_8);
+            songTitle.setText(fileName);
+        } catch (Exception e) {
+            songTitle.setText("Unknown Track");
+        }
+
+        // Set up progress bar and add listener for track time
+        mpthreePlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+            Duration total = mpthreePlayer.getTotalDuration();
+            if (total != null && total.toMillis() > 0) {
+                double progress = newTime.toMillis() / total.toMillis();
+                progressBar.setProgress(progress);
+
+                // Set up elapsed/total time for timerLabel
+                timerLabel.setText(timeFormat(newTime) + "/" + timeFormat(total));
+
+            } else {
+                progressBar.setProgress(0);
+            }
+        });
+
+        progressBar.setOnMousePressed(event -> seekFromProgress(event));
+        progressBar.setOnMouseDragged(event -> seekFromProgress(event));
+
+        System.out.println("Current Track: " + tempList.get(tempIndex));
+
+        if (isPlaying) {
+            mpthreePlayer.play();
+        }
+
+        if (isMuted) {
+            mpthreePlayer.setMute(true);
+        }
+        mpthreePlayer.play();
     }
 
     // Helper method to set up progress bar and handle progress bar logic
