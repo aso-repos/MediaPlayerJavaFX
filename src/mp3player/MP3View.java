@@ -13,7 +13,10 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -392,6 +395,28 @@ public class MP3View implements Initializable {
     }
 
     public void onNewPlaylist () {
+
+        // Remove old player if it's active
+        if (mpthreePlayer != null) {
+            mpthreePlayer.stop();
+            mpthreePlayer.dispose();
+        }
+
+        // Clear trackList and "Source" button menu items
+        trackList.clear();
+        playlistView.getItems().clear();
+
+        // Reset player state
+        currentTrackIndex = 0;
+        songTitle.setText("No Tracks Loaded");
+        progressBar.setProgress(0);
+        timerLabel.setText("00:00 / 00:00");
+
+        for (int i = 0; i < eqBars.size(); i++) {
+            eqBars.get(i).setHeight(3);
+            eqBars.get(i).setY(1);
+            }
+
         System.out.println("New Playlist");
     }
 
@@ -400,6 +425,26 @@ public class MP3View implements Initializable {
     }
 
     public void onSavePlaylist () {
+
+        // Create file handler and set up file type
+        FileChooser newList = new FileChooser();
+        FileChooser.ExtensionFilter m3uFilter =
+                new FileChooser.ExtensionFilter("M3U Playlist (*.m3u)", "*.m3u");
+        newList.getExtensionFilters().add(m3uFilter);
+        File selectedFile = newList.showSaveDialog(sourceButton.getScene().getWindow());
+
+        // Write tracks to file, if it does not already exist
+        if (selectedFile != null) {
+            try (BufferedWriter newFile = new BufferedWriter(new FileWriter(selectedFile))) {
+                for (String fileName : trackList) {
+                    newFile.write(fileName);
+                    newFile.newLine();
+                }
+            }  catch(IOException e) {
+                    e.printStackTrace();
+            }
+        }
+
         System.out.println("Save PlayList");
     }
 
@@ -561,6 +606,9 @@ public class MP3View implements Initializable {
 
         // Set up progress bar and add listener for track time
         mpthreePlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+            if (trackList.isEmpty()) {
+                return;
+            }
             Duration total = mpthreePlayer.getTotalDuration();
             if (total != null && total.toMillis() > 0) {
                 double progress = newTime.toMillis() / total.toMillis();
