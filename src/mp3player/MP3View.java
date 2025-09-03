@@ -13,10 +13,7 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -319,6 +316,7 @@ public class MP3View implements Initializable {
         if (mpthreePlayer != null) {
             mpthreePlayer.stop();
             mpthreePlayer.dispose();
+            mpthreePlayer = null;
         }
         javafx.application.Platform.exit();
     }
@@ -347,6 +345,7 @@ public class MP3View implements Initializable {
             if (mpthreePlayer != null) {
                 mpthreePlayer.stop();
                 mpthreePlayer.dispose();
+                mpthreePlayer = null;
             }
 
             List<String> tempList = new ArrayList<>();
@@ -377,6 +376,7 @@ public class MP3View implements Initializable {
             if (mpthreePlayer != null) {
                 mpthreePlayer.stop();
                 mpthreePlayer.dispose();
+                mpthreePlayer = null;
             }
 
 
@@ -400,6 +400,7 @@ public class MP3View implements Initializable {
         if (mpthreePlayer != null) {
             mpthreePlayer.stop();
             mpthreePlayer.dispose();
+            mpthreePlayer = null;
         }
 
         // Clear trackList and "Source" button menu items
@@ -421,6 +422,40 @@ public class MP3View implements Initializable {
     }
 
     public void onLoadPlaylist () {
+
+        // Create file handler and set up file type
+        FileChooser newList = new FileChooser();
+        FileChooser.ExtensionFilter m3uFilter =
+                new FileChooser.ExtensionFilter("M3U Playlist (*.m3u)", "*.m3u");
+        newList.getExtensionFilters().add(m3uFilter);
+        File selectedFile = newList.showOpenDialog(sourceButton.getScene().getWindow());
+
+        // Read tracks from file
+        if (selectedFile != null) {
+            try (BufferedReader newFile = new BufferedReader(new FileReader(selectedFile))) {
+                trackList.clear();
+                playlistView.getItems().clear();
+
+                // Add tracks to trackList
+                String line;
+                while((line = newFile.readLine()) != null) {
+                    trackList.add(line);
+
+                    // Populate playListView
+                    File file = new File(line);
+                    playlistView.getItems().add(file.getName());
+                }
+
+                if (!trackList.isEmpty()) {
+                    currentTrackIndex = 0;
+                    loadTrack();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         System.out.println("Load Playlist");
     }
 
@@ -449,6 +484,26 @@ public class MP3View implements Initializable {
     }
 
     public void onDeletePlaylist () {
+
+        // Create file handler and set up file type
+        FileChooser newList = new FileChooser();
+        FileChooser.ExtensionFilter m3uFilter =
+                new FileChooser.ExtensionFilter("M3U Playlist (*.m3u)", "*.m3u");
+        newList.getExtensionFilters().add(m3uFilter);
+
+        File selectedFile = newList.showOpenDialog(sourceButton.getScene().getWindow());
+
+        if (selectedFile != null && selectedFile.exists()) {
+            boolean deleted = selectedFile.delete();
+            if (deleted) {
+                System.out.println("Playlist Deleted: " + selectedFile.getName());
+            } else {
+                System.out.println("Playlist Deletion Failed");
+            }
+        }
+
+
+
         System.out.println("Delete Playlist");
     }
 
@@ -502,6 +557,13 @@ public class MP3View implements Initializable {
         // See if any files were selected
         if (selectedFiles != null && !selectedFiles.isEmpty()) {
 
+            // Remove old player if it's active
+            if (mpthreePlayer !=null) {
+                mpthreePlayer.stop();
+                mpthreePlayer.dispose();
+                mpthreePlayer = null;
+            }
+
             trackList.clear();
             playlistView.getItems().clear();
 
@@ -531,9 +593,13 @@ public class MP3View implements Initializable {
 
         double getVolume;
         if (mpthreePlayer != null) {
-            getVolume = mpthreePlayer.getVolume();
-            mpthreePlayer.stop();
-            mpthreePlayer.dispose();
+            try {
+                getVolume = mpthreePlayer.getVolume();
+                mpthreePlayer.stop();
+                mpthreePlayer.dispose();
+            } catch (Exception e) {
+                getVolume = volumeSlider.getValue() / 100;
+            }
         } else {
             getVolume = volumeSlider.getValue() / 100;
         }
@@ -647,6 +713,7 @@ public class MP3View implements Initializable {
             getVolume = mpthreePlayer.getVolume();
             mpthreePlayer.stop();
             mpthreePlayer.dispose();
+            mpthreePlayer = null;
         } else {
             getVolume = volumeSlider.getValue() / 100;
         }
