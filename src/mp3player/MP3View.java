@@ -87,6 +87,7 @@ public class MP3View implements Initializable {
 
     private int currentTrackIndex = 0;
     private List<String> trackList = new ArrayList<>();
+    private List<String> tempList = new ArrayList<>();
     private Media mpthreeMedia;
     private MediaPlayer mpthreePlayer;
 
@@ -104,9 +105,9 @@ public class MP3View implements Initializable {
     private MenuItem appendFilesItem;
     private MenuItem replaceFilesItem;
 
-    // Fields for instant batch
-    private List<String> instantBatchUri;
-    private List<File> instantBatchFiles;
+    // Boolean flag for Instant Batch Playing
+    private boolean isInstantBatch = false;
+    private int batchIndex = 0;
 
 
     @Override
@@ -223,19 +224,37 @@ public class MP3View implements Initializable {
     @FXML
     public void skipbackClicked(ActionEvent event) {
 
-        System.out.println("Current Track: " + trackList.get(currentTrackIndex));
-        System.out.println("Skip To Previous Track Clicked");
+        if(isInstantBatch) {
 
-        if (!trackList.isEmpty()) {
-            mpthreePlayer.stop();
-            if (currentTrackIndex > 0) {
-                currentTrackIndex--;
+            System.out.println("Current Batch Track: " + tempList.get(batchIndex));
+            System.out.println("Skip To Previous Batch Track Clicked");
+
+            if (!tempList.isEmpty()) {
+                mpthreePlayer.stop();
+                if (batchIndex > 0) {
+                    batchIndex--;
+                } else {
+                    batchIndex = tempList.size() - 1;
+                    }
+                loadTrackBatch(tempList, batchIndex);
+                }
+
             } else {
-                currentTrackIndex = trackList.size() - 1;
+
+            System.out.println("Current Track: " + trackList.get(currentTrackIndex));
+            System.out.println("Skip To Previous Track Clicked");
+
+            if (!trackList.isEmpty()) {
+                mpthreePlayer.stop();
+                if (currentTrackIndex > 0) {
+                    currentTrackIndex--;
+                } else {
+                    currentTrackIndex = trackList.size() - 1;
+                    }
+                loadTrack();
+                }
             }
-            loadTrack();
         }
-    }
 
     // Implement skip-to-beginning button
     @FXML
@@ -266,19 +285,37 @@ public class MP3View implements Initializable {
     @FXML
     public void skipforwardClicked(ActionEvent event) {
 
-        System.out.println("Current Track: " + trackList.get(currentTrackIndex));
-        System.out.println("Skip To Next Track Clicked");
+        if (isInstantBatch) {
 
-        if (!trackList.isEmpty() && currentTrackIndex < trackList.size() - 1) {
+            System.out.println("Current Batch Track: " + tempList.get(batchIndex));
+            System.out.println("Skip To Next Batch Track Clicked");
 
-            mpthreePlayer.stop();
-            currentTrackIndex++;
-            loadTrack();
+            if (!tempList.isEmpty() && batchIndex < tempList.size() - 1) {
 
-        } else if (!trackList.isEmpty() && currentTrackIndex >= trackList.size() - 1) {
-            mpthreePlayer.stop();
-            currentTrackIndex = 0;
-            loadTrack();
+                mpthreePlayer.stop();
+                batchIndex++;
+                loadTrackBatch(tempList, batchIndex);
+
+            } else if (!tempList.isEmpty() && batchIndex >= tempList.size() - 1) {
+                mpthreePlayer.stop();
+                batchIndex = 0;
+                loadTrackBatch(tempList, batchIndex);
+            }
+        } else {
+            System.out.println("Current Track: " + trackList.get(currentTrackIndex));
+            System.out.println("Skip To Next Track Clicked");
+
+            if (!trackList.isEmpty() && currentTrackIndex < trackList.size() - 1) {
+
+                mpthreePlayer.stop();
+                currentTrackIndex++;
+                loadTrack();
+
+            } else if (!trackList.isEmpty() && currentTrackIndex >= trackList.size() - 1) {
+                mpthreePlayer.stop();
+                currentTrackIndex = 0;
+                loadTrack();
+            }
         }
     }
 
@@ -348,7 +385,7 @@ public class MP3View implements Initializable {
                 mpthreePlayer = null;
             }
 
-            List<String> tempList = new ArrayList<>();
+            tempList.clear();
             tempList.add(uri);
 
             loadTrackBatch(tempList, 0);
@@ -381,11 +418,13 @@ public class MP3View implements Initializable {
 
 
             // Build temporary list
-            List<String> tempList = new ArrayList<>();
+            tempList.clear();
             for (File file : selectedFiles) {
                 tempList.add(file.toURI().toString());
             }
 
+            isInstantBatch = true;
+            batchIndex = 0;
             loadTrackBatch(tempList, 0);
 
             System.out.println("Instant Batch Playing Started: " + selectedFiles.size());
@@ -395,6 +434,9 @@ public class MP3View implements Initializable {
     }
 
     public void onNewPlaylist () {
+
+        // Restore normal Playlist mode
+        isInstantBatch = false;
 
         // Remove old player if it's active
         if (mpthreePlayer != null) {
@@ -422,6 +464,9 @@ public class MP3View implements Initializable {
     }
 
     public void onLoadPlaylist () {
+
+        // Restore normal Playlist mode
+        isInstantBatch = false;
 
         // Create file handler and set up file type
         FileChooser newList = new FileChooser();
@@ -509,6 +554,9 @@ public class MP3View implements Initializable {
 
     public void onAppendFiles () {
 
+        // Restore normal Playlist mode
+        isInstantBatch = false;
+
         // Choose a file first
         FileChooser fileChooser = new FileChooser();
 
@@ -542,6 +590,9 @@ public class MP3View implements Initializable {
     }
 
     public void onReplaceFiles () {
+
+        // Restore normal Playlist mode
+        isInstantBatch = false;
 
         // Choose a file first
         FileChooser fileChooser = new FileChooser();
