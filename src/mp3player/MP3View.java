@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
@@ -25,6 +26,15 @@ import java.util.ResourceBundle;
 public class MP3View implements Initializable {
 
     @FXML
+    private AnchorPane backPane;
+
+    // Set up variables mouse location used during application drag and "dragZone"
+    @FXML
+    private AnchorPane dragZone;
+    private double playerXOffset = 0;
+    private double playerYOffset = 0;
+
+    @FXML
     private Button playpauseButton;
     @FXML
     private Button skipbackButton;
@@ -42,6 +52,8 @@ public class MP3View implements Initializable {
     private Button closeButton;
     @FXML
     private Button sourceButton;
+    @FXML
+    private Button playlistButton;
     @FXML
     private ProgressBar progressBar;
     @FXML
@@ -130,6 +142,10 @@ public class MP3View implements Initializable {
             }
         }
 
+        // Hide Playlist
+        playlistView.setVisible(false);
+        playlistView.setManaged(false);
+
         if (!trackList.isEmpty()) {
             int counter = 0;
             for (String track : trackList) {
@@ -191,6 +207,20 @@ public class MP3View implements Initializable {
             }
 
         });
+
+        // Set up logic for grabbing and moving player when "backPane" is clicked
+        dragZone.setOnMousePressed(event -> {
+            playerXOffset = event.getSceneX();
+            playerYOffset = event.getSceneY();
+        });
+
+        dragZone.setOnMouseDragged(event -> {
+            dragZone.getScene().getWindow().setX(event.getScreenX() - playerXOffset);
+            dragZone.getScene().getWindow().setY(event.getScreenY() - playerYOffset);
+        });
+
+        dragZone.setOnMouseEntered(event -> dragZone.setCursor(javafx.scene.Cursor.MOVE));
+        dragZone.setOnMouseExited(event -> dragZone.setCursor(javafx.scene.Cursor.DEFAULT));
     }
 
     // Implement play/pause button
@@ -345,6 +375,16 @@ public class MP3View implements Initializable {
     @FXML
     public void sourceClicked (ActionEvent event) {
         sourceMenu.show(sourceButton, Side.BOTTOM, 0,0);
+    }
+
+    @FXML
+    public void playlistClicked (ActionEvent event) {
+
+        boolean playlistVisible = playlistView.isVisible();
+        playlistView.setVisible(!playlistVisible);
+        playlistView.setManaged(!playlistVisible);
+
+        System.out.println("Playlist Clicked");
     }
 
     @FXML

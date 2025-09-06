@@ -11,8 +11,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="720.0" styleClass="player-background" stylesheets="@../css/default.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mp3player.MP3View">
+<AnchorPane fx:id="backPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="720.0" styleClass="player-background" stylesheets="@../css/default.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mp3player.MP3View">
    <children>
+      <AnchorPane fx:id="dragZone" layoutX = "0.0" layoutY = "0.0" prefHeight ="20.0" prefWidth="720" style="fx-bakground-color: transparent;" />
       <Button fx:id="skipbackButton" layoutX="13.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipbackClicked" prefHeight="35.0" prefWidth="80.0" styleClass="default-button" stylesheets="@../css/default.css" text="B" textAlignment="CENTER" textOverrun="CLIP">
          <font>
             <Font name="MediaPlayer" size="26.0" />
@@ -58,22 +59,22 @@
          </font>
       </Label>
       <Slider fx:id="volumeSlider" layoutX="568.0" layoutY="168.0" onMouseDragReleased="#volumeControl" onMouseDragged="#volumeControl" prefHeight="14.0" prefWidth="113.0" value="50.0" />
-      <Button fx:id="muteButton" layoutX="586.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#muteClicked" prefHeight="35.0" prefWidth="80.0" styleClass="default-button" stylesheets="@../css/default.css" text="M" textAlignment="CENTER" textOverrun="CLIP">
+      <Button fx:id="muteButton" layoutX="546.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#muteClicked" prefHeight="35.0" prefWidth="80.0" styleClass="mute-button" stylesheets="@../css/default.css" text="M" textAlignment="CENTER" textOverrun="CLIP">
          <font>
-            <Font name="MediaPlayer" size="26.0" />
+            <Font name="MediaPlayer" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="closeButton" layoutX="642.0" layoutY="127.0" mnemonicParsing="false" onAction="#closeClicked" prefHeight="19.0" prefWidth="59.0" text="CLOSE">
-         <font>
-            <Font name="Futura Md BT Medium" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="sourceButton" layoutX="545.0" layoutY="127.0" mnemonicParsing="false" onAction="#sourceClicked" prefHeight="23.0" prefWidth="65.0" text="SOURCE">
+      <Button fx:id="closeButton" layoutX="644.0" layoutY="197.0" mnemonicParsing="false" onAction="#closeClicked" prefHeight="35.0" prefWidth="59.0" text="CLOSE">
          <font>
             <Font name="Futura Md BT Medium" size="12.0" />
          </font>
       </Button>
-      <ListView fx:id="playlistView" layoutX="549.0" layoutY="6.0" prefHeight="116.0" prefWidth="153.0" />
+      <Button fx:id="sourceButton" layoutX="545.0" layoutY="127.0" mnemonicParsing="false" onAction="#sourceClicked" prefHeight="23.0" prefWidth="58.0" text="SOURCE">
+         <font>
+            <Font name="Futura Md BT Medium" size="10.0" />
+         </font>
+      </Button>
+      <ListView fx:id="playlistView" layoutX="545.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="96.0" prefWidth="157.0" />
       <AnchorPane layoutX="14.0" layoutY="23.0" prefHeight="145.0" prefWidth="513.0" style="-fx-background-color: #000000;" styleClass="display-window" stylesheets="@../css/default.css">
          <children>
             <Label fx:id="songTitle" cacheShape="false" layoutX="-20.0" prefHeight="58.0" prefWidth="413.0" styleClass="songTitle-display" stylesheets="@../css/default.css" text="Song Title" textFill="#44d8ff">
@@ -109,5 +110,10 @@
             <Rectangle fx:id="eqBar15" fill="DODGERBLUE" height="4.0" layoutX="476.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
          </children>
       </AnchorPane>
+      <Button fx:id="playlistButton" layoutX="610.0" layoutY="127.0" mnemonicParsing="false" onAction="#playlistClicked" prefHeight="23.0" prefWidth="92.0" text="SHOW PLAYLIST">
+         <font>
+            <Font name="Futura Md BT Medium" size="10.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
