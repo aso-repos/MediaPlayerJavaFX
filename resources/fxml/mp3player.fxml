@@ -13,42 +13,42 @@
 
 <AnchorPane fx:id="backPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="720.0" styleClass="player-background" stylesheets="@../css/default.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mp3player.MP3View">
    <children>
-      <AnchorPane fx:id="dragZone" layoutX = "0.0" layoutY = "0.0" prefHeight ="20.0" prefWidth="720" style="fx-bakground-color: transparent;" />
-      <Button fx:id="skipbackButton" layoutX="13.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipbackClicked" prefHeight="35.0" prefWidth="80.0" styleClass="default-button" stylesheets="@../css/default.css" text="B" textAlignment="CENTER" textOverrun="CLIP">
+      <AnchorPane fx:id="dragZone" layoutX="4.0" prefHeight="20.0" prefWidth="720" style="fx-bakground-color: transparent;" />
+      <Button fx:id="skipbackButton" layoutX="17.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipbackClicked" prefHeight="35.0" prefWidth="61.15" styleClass="default-button" stylesheets="@../css/default.css" text="B" textAlignment="CENTER" textOverrun="CLIP">
          <font>
             <Font name="MediaPlayer" size="26.0" />
          </font></Button>
-      <ProgressBar fx:id="progressBar" focusTraversable="false" layoutX="14.0" layoutY="167.0" prefHeight="18.0" prefWidth="513.0" progress="0.0" />
-      <Button fx:id="playpauseButton" layoutX="187.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playpauseClicked" prefHeight="35.0" prefWidth="80.0" styleClass="default-button" stylesheets="@../css/default.css" text="P" textAlignment="CENTER" textOverrun="CLIP">
+      <ProgressBar fx:id="progressBar" focusTraversable="false" layoutX="18.0" layoutY="171.0" prefHeight="18.0" prefWidth="368.0" progress="0.0" />
+      <Button fx:id="playpauseButton" layoutX="140.5" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playpauseClicked" prefHeight="35.0" prefWidth="61.15" styleClass="default-button" stylesheets="@../css/default.css" text="P" textAlignment="CENTER" textOverrun="CLIP">
          <font>
             <Font name="MediaPlayer" size="26.0" />
          </font>
       </Button>
-      <Button fx:id="stopButton" layoutX="274.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#stopClicked" prefHeight="35.0" prefWidth="80.0" styleClass="default-button" stylesheets="@../css/default.css" text="S" textAlignment="CENTER" textOverrun="CLIP">
+      <Button fx:id="stopButton" layoutX="201.9" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#stopClicked" prefHeight="35.0" prefWidth="61.15" styleClass="default-button" stylesheets="@../css/default.css" text="S" textAlignment="CENTER" textOverrun="CLIP">
          <font>
             <Font name="MediaPlayer" size="26.0" />
          </font>
       </Button>
-      <Button fx:id="skipforwardButton" layoutX="448.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipforwardClicked" prefHeight="35.0" prefWidth="80.0" styleClass="default-button" stylesheets="@../css/default.css" text="F" textAlignment="CENTER" textOverrun="CLIP">
+      <Button fx:id="skipforwardButton" layoutX="325.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipforwardClicked" prefHeight="35.0" prefWidth="61.15" styleClass="default-button" stylesheets="@../css/default.css" text="F" textAlignment="CENTER" textOverrun="CLIP">
          <font>
             <Font name="MediaPlayer" size="26.0" />
          </font>
       </Button>
-      <Button fx:id="skipbeginningButton" layoutX="100.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipbeginningClicked" prefHeight="35.0" prefWidth="80.0" styleClass="default-button" stylesheets="@../css/default.css" text="-" textAlignment="CENTER" textOverrun="CLIP">
+      <Button fx:id="skipbeginningButton" layoutX="78.7" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipbeginningClicked" prefHeight="35.0" prefWidth="61.15" styleClass="default-button" stylesheets="@../css/default.css" text="-" textAlignment="CENTER" textOverrun="CLIP">
          <font>
             <Font name="MediaPlayer" size="26.0" />
          </font>
       </Button>
-      <Button fx:id="skipendingButton" layoutX="361.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipendingClicked" prefHeight="35.0" prefWidth="80.0" styleClass="default-button" stylesheets="@../css/default.css" text="+" textAlignment="CENTER" textOverrun="CLIP">
+      <Button fx:id="skipendingButton" layoutX="263.5" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipendingClicked" prefHeight="35.0" prefWidth="61.15" styleClass="default-button" stylesheets="@../css/default.css" text="+" textAlignment="CENTER" textOverrun="CLIP">
          <font>
             <Font name="MediaPlayer" size="26.0" />
          </font>
       </Button>
-      <Label fx:id="volumeDown" focusTraversable="false" layoutX="534.0" layoutY="161.0" text="D" textFill="WHITE">
+      <Label fx:id="volumeDown" focusTraversable="false" layoutX="507.0" layoutY="160.0" text="D" textFill="WHITE">
          <font>
             <Font name="MediaPlayer" size="38.0" />
          </font></Label>
-      <Label fx:id="volumeUp" focusTraversable="false" layoutX="674.0" layoutY="160.0" text="U" textFill="WHITE">
+      <Label fx:id="volumeUp" focusTraversable="false" layoutX="674.0" layoutY="159.0" text="U" textFill="WHITE">
          <font>
             <Font name="MediaPlayer" size="38.0" />
          </font>
@@ -58,8 +58,8 @@
             <Font name="MediaPlayer" size="160.0" />
          </font>
       </Label>
-      <Slider fx:id="volumeSlider" layoutX="568.0" layoutY="168.0" onMouseDragReleased="#volumeControl" onMouseDragged="#volumeControl" prefHeight="14.0" prefWidth="113.0" value="50.0" />
-      <Button fx:id="muteButton" layoutX="546.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#muteClicked" prefHeight="35.0" prefWidth="80.0" styleClass="mute-button" stylesheets="@../css/default.css" text="M" textAlignment="CENTER" textOverrun="CLIP">
+      <Slider fx:id="volumeSlider" layoutX="536.0" layoutY="167.0" onMouseDragReleased="#volumeControl" onMouseDragged="#volumeControl" prefHeight="14.0" prefWidth="145.0" value="50.0" />
+      <Button fx:id="muteButton" layoutX="519.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#muteClicked" prefHeight="35.0" prefWidth="80.0" styleClass="mute-button" stylesheets="@../css/default.css" text="M" textAlignment="CENTER" textOverrun="CLIP">
          <font>
             <Font name="MediaPlayer" size="14.0" />
          </font>
@@ -69,50 +69,44 @@
             <Font name="Futura Md BT Medium" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="sourceButton" layoutX="545.0" layoutY="127.0" mnemonicParsing="false" onAction="#sourceClicked" prefHeight="23.0" prefWidth="58.0" text="SOURCE">
+      <Button fx:id="sourceButton" layoutX="518.0" layoutY="127.0" mnemonicParsing="false" onAction="#sourceClicked" prefHeight="23.0" prefWidth="67.0" text="SOURCE">
          <font>
-            <Font name="Futura Md BT Medium" size="10.0" />
+            <Font name="Futura Md BT Medium" size="12.0" />
          </font>
       </Button>
-      <ListView fx:id="playlistView" layoutX="545.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="96.0" prefWidth="157.0" />
-      <AnchorPane layoutX="14.0" layoutY="23.0" prefHeight="145.0" prefWidth="513.0" style="-fx-background-color: #000000;" styleClass="display-window" stylesheets="@../css/default.css">
+      <ListView fx:id="playlistView" layoutX="397.0" layoutY="16.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="103.0" prefWidth="305.0" />
+      <AnchorPane layoutX="18.0" layoutY="16.0" prefHeight="152.0" prefWidth="367.0" styleClass="player-display" stylesheets="@../css/default.css">
          <children>
-            <Label fx:id="songTitle" cacheShape="false" layoutX="-20.0" prefHeight="58.0" prefWidth="413.0" styleClass="songTitle-display" stylesheets="@../css/default.css" text="Song Title" textFill="#44d8ff">
+            <Label fx:id="songTitle" alignment="CENTER_RIGHT" cacheShape="false" contentDisplay="RIGHT" layoutX="2.0" layoutY="5.0" prefHeight="28.0" prefWidth="360.0" styleClass="songTitle-display" stylesheets="@../css/default.css" text="Song Title" textFill="#44d8ff" textOverrun="CLIP">
                <font>
-                  <Font name="MatrixCustom" size="16.0" />
+                  <Font name="MatrixCustom" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="timerLabel" alignment="CENTER_RIGHT" layoutX="331.0" prefHeight="58.0" prefWidth="174.0" text="2:08 / 5:26" textAlignment="RIGHT" textFill="#44d8ff">
+            <Label fx:id="timerLabel" alignment="CENTER_RIGHT" layoutX="234.0" layoutY="32.0" prefHeight="22.0" prefWidth="101.0" text="2:08 / 5:26" textAlignment="RIGHT" textFill="#44d8ff">
                <font>
-                  <Font name="MatrixCustom" size="15.0" />
+                  <Font name="MatrixCustom" size="12.0" />
                </font>
             </Label>
-            <ImageView fitHeight="76.0" fitWidth="497.0" layoutX="11.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="76.0" fitWidth="497.0" layoutX="30.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/eq_bar.png" />
                </image>
             </ImageView>
-            <Rectangle fx:id="eqBar0" fill="DODGERBLUE" height="4.0" layoutX="11.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
-            <Rectangle fx:id="eqBar1" fill="DODGERBLUE" height="4.0" layoutX="42.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
-            <Rectangle fx:id="eqBar2" fill="DODGERBLUE" height="4.0" layoutX="73.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
-            <Rectangle fx:id="eqBar3" fill="DODGERBLUE" height="4.0" layoutX="104.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
-            <Rectangle fx:id="eqBar4" fill="DODGERBLUE" height="4.0" layoutX="135.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
-            <Rectangle fx:id="eqBar5" fill="DODGERBLUE" height="4.0" layoutX="166.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
-            <Rectangle fx:id="eqBar6" fill="DODGERBLUE" height="4.0" layoutX="197.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
-            <Rectangle fx:id="eqBar7" fill="DODGERBLUE" height="4.0" layoutX="228.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
-            <Rectangle fx:id="eqBar8" fill="DODGERBLUE" height="4.0" layoutX="259.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
-            <Rectangle fx:id="eqBar9" fill="DODGERBLUE" height="4.0" layoutX="290.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
-            <Rectangle fx:id="eqBar10" fill="DODGERBLUE" height="4.0" layoutX="321.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
-            <Rectangle fx:id="eqBar11" fill="DODGERBLUE" height="4.0" layoutX="352.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
-            <Rectangle fx:id="eqBar12" fill="DODGERBLUE" height="4.0" layoutX="384.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
-            <Rectangle fx:id="eqBar13" fill="DODGERBLUE" height="4.0" layoutX="414.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
-            <Rectangle fx:id="eqBar14" fill="DODGERBLUE" height="4.0" layoutX="445.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
-            <Rectangle fx:id="eqBar15" fill="DODGERBLUE" height="4.0" layoutX="476.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar0" fill="DODGERBLUE" height="4.0" layoutX="30.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar1" fill="DODGERBLUE" height="4.0" layoutX="61.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar2" fill="DODGERBLUE" height="4.0" layoutX="92.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar3" fill="DODGERBLUE" height="4.0" layoutX="123.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar4" fill="DODGERBLUE" height="4.0" layoutX="154.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar5" fill="DODGERBLUE" height="4.0" layoutX="185.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar6" fill="DODGERBLUE" height="4.0" layoutX="216.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar7" fill="DODGERBLUE" height="4.0" layoutX="247.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar8" fill="DODGERBLUE" height="4.0" layoutX="278.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
+            <Rectangle fx:id="eqBar9" fill="DODGERBLUE" height="4.0" layoutX="309.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="eqBarFill" width="26.0" />
          </children>
       </AnchorPane>
-      <Button fx:id="playlistButton" layoutX="610.0" layoutY="127.0" mnemonicParsing="false" onAction="#playlistClicked" prefHeight="23.0" prefWidth="92.0" text="SHOW PLAYLIST">
+      <Button fx:id="playlistButton" layoutX="594.0" layoutY="127.0" mnemonicParsing="false" onAction="#playlistClicked" prefHeight="23.0" prefWidth="108.0" text="SHOW PLAYLIST">
          <font>
-            <Font name="Futura Md BT Medium" size="10.0" />
+            <Font name="Futura Md BT Medium" size="12.0" />
          </font>
       </Button>
    </children>

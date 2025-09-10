@@ -84,18 +84,6 @@ public class MP3View implements Initializable {
     Rectangle eqBar8;
     @FXML
     Rectangle eqBar9;
-    @FXML
-    Rectangle eqBar10;
-    @FXML
-    Rectangle eqBar11;
-    @FXML
-    Rectangle eqBar12;
-    @FXML
-    Rectangle eqBar13;
-    @FXML
-    Rectangle eqBar14;
-    @FXML
-    Rectangle eqBar15;
 
     private int currentTrackIndex = 0;
     private List<String> trackList = new ArrayList<>();
@@ -165,9 +153,7 @@ public class MP3View implements Initializable {
 
         // Add EQ bars to ArrayList
         eqBars = new ArrayList<>(Arrays.asList(eqBar0, eqBar1, eqBar2, eqBar3,
-                        eqBar4, eqBar5, eqBar6, eqBar7,
-                        eqBar8, eqBar9, eqBar10, eqBar11,
-                        eqBar12, eqBar13, eqBar14, eqBar15));
+                        eqBar4, eqBar5, eqBar6, eqBar7, eqBar8, eqBar9));
 
         // Create the menu items for File/Playlist from "Source" button
         instantPlayItem = new MenuItem("Instant Play (Single File)");
