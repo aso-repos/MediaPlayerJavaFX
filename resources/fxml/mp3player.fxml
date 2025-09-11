@@ -19,27 +19,7 @@
             <Font name="MediaPlayer" size="26.0" />
          </font></Button>
       <ProgressBar fx:id="progressBar" focusTraversable="false" layoutX="18.0" layoutY="171.0" prefHeight="18.0" prefWidth="368.0" progress="0.0" />
-      <Button fx:id="playpauseButton" layoutX="140.5" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playpauseClicked" prefHeight="35.0" prefWidth="61.15" styleClass="default-button" stylesheets="@../css/default.css" text="P" textAlignment="CENTER" textOverrun="CLIP">
-         <font>
-            <Font name="MediaPlayer" size="26.0" />
-         </font>
-      </Button>
-      <Button fx:id="stopButton" layoutX="201.9" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#stopClicked" prefHeight="35.0" prefWidth="61.15" styleClass="default-button" stylesheets="@../css/default.css" text="S" textAlignment="CENTER" textOverrun="CLIP">
-         <font>
-            <Font name="MediaPlayer" size="26.0" />
-         </font>
-      </Button>
-      <Button fx:id="skipforwardButton" layoutX="325.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipforwardClicked" prefHeight="35.0" prefWidth="61.15" styleClass="default-button" stylesheets="@../css/default.css" text="F" textAlignment="CENTER" textOverrun="CLIP">
-         <font>
-            <Font name="MediaPlayer" size="26.0" />
-         </font>
-      </Button>
       <Button fx:id="skipbeginningButton" layoutX="78.7" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipbeginningClicked" prefHeight="35.0" prefWidth="61.15" styleClass="default-button" stylesheets="@../css/default.css" text="-" textAlignment="CENTER" textOverrun="CLIP">
-         <font>
-            <Font name="MediaPlayer" size="26.0" />
-         </font>
-      </Button>
-      <Button fx:id="skipendingButton" layoutX="263.5" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipendingClicked" prefHeight="35.0" prefWidth="61.15" styleClass="default-button" stylesheets="@../css/default.css" text="+" textAlignment="CENTER" textOverrun="CLIP">
          <font>
             <Font name="MediaPlayer" size="26.0" />
          </font>
@@ -107,6 +87,26 @@
       <Button fx:id="playlistButton" layoutX="594.0" layoutY="127.0" mnemonicParsing="false" onAction="#playlistClicked" prefHeight="23.0" prefWidth="108.0" text="SHOW PLAYLIST">
          <font>
             <Font name="Futura Md BT Medium" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="playpauseButton" layoutX="140.5" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playpauseClicked" prefHeight="35.0" prefWidth="61.15" styleClass="default-button" stylesheets="@../css/default.css" text="P" textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font name="MediaPlayer" size="26.0" />
+         </font>
+      </Button>
+      <Button fx:id="stopButton" layoutX="201.9" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#stopClicked" prefHeight="35.0" prefWidth="61.15" styleClass="default-button" stylesheets="@../css/default.css" text="S" textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font name="MediaPlayer" size="26.0" />
+         </font>
+      </Button>
+      <Button fx:id="skipendingButton" layoutX="263.5" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipendingClicked" prefHeight="35.0" prefWidth="61.15" styleClass="default-button" stylesheets="@../css/default.css" text="+" textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font name="MediaPlayer" size="26.0" />
+         </font>
+      </Button>
+      <Button fx:id="skipforwardButton" layoutX="325.2" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#skipforwardClicked" prefHeight="35.0" prefWidth="61.15" styleClass="default-button" stylesheets="@../css/default.css" text="F" textAlignment="CENTER" textOverrun="CLIP">
+         <font>
+            <Font name="MediaPlayer" size="26.0" />
          </font>
       </Button>
    </children>

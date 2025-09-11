@@ -18,8 +18,13 @@
     -fx-font-family: "MediaPlayer";
     -fx-text-overrun: clip;
     -fx-padding: 0px;
-    -fx-text-fill: #000000;
+    -fx-text-fill: #ffffff;
     -fx-font-size: 26px;
+    -fx-background-color: linear-gradient(#444444, #151515);
+    -fx_background-radius: 0px;
+    -fx-effect: dropshadow(gaussian, #000000, 2, 0.8, 0,0);
+    -fx-border-color: #787878 #292929 #444444 #787878;
+    -fx-border-width: 1.2px;
 }
 
 .mute-button {
