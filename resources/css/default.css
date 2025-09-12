@@ -4,17 +4,71 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-size: cover;
+    -fx-border-color: #7f7e7e #2e2e2e #2e2e2e #7f7e7e;
+    -fx-border-width: 2.5px;
+    -fx-effect: innershadow(gaussian, #00000040, 8, 0.5, 0, 0);
+
 }
 
 .player-display {
     -fx-background-color: #1d1d1d;
     -fx_background-radius: 0px;
-    -fx-effect: dropshadow(gaussian, #000000, 3, 0.9, 0,0);
+    -fx-effect: dropshadow(gaussian, #000000, 3, 0.5, 0, 0);
     -fx-border-color: #515151 #292929 #292929 #515151;
     -fx-border-width: 1.5px;
 }
 
 .default-button {
+    -fx-font-family: "MediaPlayer";
+    -fx-text-overrun: clip;
+    -fx-padding: 0px;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20px;
+    -fx-background-color: linear-gradient(#444444, #151515);
+    -fx_background-radius: 0px;
+    -fx-effect: dropshadow(gaussian, #000000, 2, 0.8, 0,0);
+    -fx-border-color: #787878 #292929 #444444 #787878;
+    -fx-border-width: 1.2px;
+}
+
+.default-button: pressed {
+    -fx-font-family: "MediaPlayer";
+    -fx-text-overrun: clip;
+    -fx-padding: 0px;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20px;
+    -fx-background-color: linear-gradient(#444444, #151515);
+    -fx_background-radius: 0px;
+    -fx-effect: dropshadow(gaussian, #000000, 2, 0.8, 0,0);
+    -fx-border-color: #292929 #292929 #292929 #292929;
+    -fx-border-width: 1.2px;
+}
+
+.alt-button {
+    -fx-text-overrun: clip;
+    -fx-padding: 0px;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 11px;
+    -fx-background-color: linear-gradient(#444444, #151515);
+    -fx_background-radius: 0px;
+    -fx-effect: dropshadow(gaussian, #000000, 2, 0.8, 0,0);
+    -fx-border-color: #787878 #292929 #444444 #787878;
+    -fx-border-width: 1.2px;
+}
+
+.alt-button: pressed {
+    -fx-text-overrun: clip;
+    -fx-padding: 0px;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 11px;
+    -fx-background-color: linear-gradient(#444444, #151515);
+    -fx_background-radius: 0px;
+    -fx-effect: dropshadow(gaussian, #000000, 2, 0.8, 0,0);
+    -fx-border-color: #292929 #292929 #292929 #292929;
+    -fx-border-width: 1.2px;
+}
+
+.mute-button {
     -fx-font-family: "MediaPlayer";
     -fx-text-overrun: clip;
     -fx-padding: 0px;
@@ -27,12 +81,17 @@
     -fx-border-width: 1.2px;
 }
 
-.mute-button {
+.mute-button: pressed {
     -fx-font-family: "MediaPlayer";
     -fx-text-overrun: clip;
     -fx-padding: 0px;
-    -fx-text-fill: #000000;
-    -fx-font-size: 34px;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 26px;
+    -fx-background-color: linear-gradient(#444444, #151515);
+    -fx_background-radius: 0px;
+    -fx-effect: dropshadow(gaussian, #000000, 2, 0.8, 0,0);
+    -fx-border-color: #292929 #292929 #292929 #292929;
+    -fx-border-width: 1.2px;
 }
 
 .eqBarFill {
@@ -42,3 +101,31 @@
 .songTitle-display {
     -fx-scale-x: 0.85;
 }
+
+.volume-slider .track {
+    -fx-background-color: #000000;
+}
+
+.volume-slider .thumb {
+    -fx-background-color: radial-gradient(center 50% 50%, radius 90%, #505050, #000000);
+    -fx-effect: innershadow(gaussian, #ababab, 0.5, 0.6, 1,1);
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-border-width: 0.5px;
+    -fx-border-color: #838383;
+}
+
+.playerprogress-bar .track {
+    -fx-background-color: #474747;
+    -fx_background-radius: 0px;
+    -fx-border-color: #000000 #9d9d9d #9d9d9d #000000;
+    -fx-border-width: 1.2px;
+}
+
+.playerprogress-bar > .bar {
+    -fx-background-color: #63f6fb;
+    -fx-background-radius: 0px;
+    -fx-opacity: 1;
+    -fx-background-insets: 0;
+}
+

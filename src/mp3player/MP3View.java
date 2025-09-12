@@ -1,5 +1,6 @@
 package mp3player;
 
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -104,6 +105,9 @@ public class MP3View implements Initializable {
     private MenuItem deletePlaylistItem;
     private MenuItem appendFilesItem;
     private MenuItem replaceFilesItem;
+
+    // Variable for text label marquee scrolling
+    private TranslateTransition marqueeScroll;
 
     // Boolean flag for Instant Batch Playing
     private boolean isInstantBatch = false;
@@ -213,14 +217,19 @@ public class MP3View implements Initializable {
     @FXML
     public void playpauseClicked(ActionEvent event) {
 
+        // Change button color when clicked
+
         if (mpthreePlayer != null) {
             MediaPlayer.Status status = mpthreePlayer.getStatus();
 
             if (status == MediaPlayer.Status.PLAYING) {
                 mpthreePlayer.pause();
+                playpauseButton.setStyle("-fx-text-fill: #fffa6b");
                 System.out.println("PAUSED");
             } else {
                 mpthreePlayer.play();
+                playpauseButton.setStyle("-fx-text-fill: #41eb41");
+                stopButton.setStyle("");
                 System.out.println("PLAYING");
             }
         }
@@ -233,6 +242,8 @@ public class MP3View implements Initializable {
         if (mpthreePlayer != null) {
             mpthreePlayer.stop();
         }
+        playpauseButton.setStyle("");
+        stopButton.setStyle("-fx-text-fill: #ff4f37");
         System.out.println("Stop Clicked");
     }
 
@@ -352,8 +363,10 @@ public class MP3View implements Initializable {
         if (mpthreePlayer != null) {
             if (!mpthreePlayer.isMute()) {
                 mpthreePlayer.setMute(true);
+                muteButton.setStyle("-fx-text-fill: #ffbe0f");
             } else {
                 mpthreePlayer.setMute(false);
+                muteButton.setStyle("");
             }
         }
     }
@@ -369,6 +382,12 @@ public class MP3View implements Initializable {
         boolean playlistVisible = playlistView.isVisible();
         playlistView.setVisible(!playlistVisible);
         playlistView.setManaged(!playlistVisible);
+
+        if (!playlistVisible) {
+            playlistButton.setStyle("-fx-text-fill: #28d4ff");
+        } else {
+            playlistButton.setStyle("");
+        }
 
         System.out.println("Playlist Clicked");
     }
