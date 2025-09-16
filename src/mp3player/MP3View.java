@@ -253,6 +253,11 @@ public class MP3View implements Initializable {
 
         if(isInstantBatch) {
 
+            if (tempList.isEmpty()) {
+                System.out.println("No Tracks In Batch");
+                return;
+            }
+
             System.out.println("Current Batch Track: " + tempList.get(batchIndex));
             System.out.println("Skip To Previous Batch Track Clicked");
 
@@ -267,6 +272,11 @@ public class MP3View implements Initializable {
                 }
 
             } else {
+
+            if (trackList.isEmpty()) {
+                System.out.println("No Tracks In Playlist");
+                return;
+            }
 
             System.out.println("Current Track: " + trackList.get(currentTrackIndex));
             System.out.println("Skip To Previous Track Clicked");
@@ -314,6 +324,11 @@ public class MP3View implements Initializable {
 
         if (isInstantBatch) {
 
+            if (tempList.isEmpty()) {
+                System.out.println("No Tracks In Batch");
+                return;
+            }
+
             System.out.println("Current Batch Track: " + tempList.get(batchIndex));
             System.out.println("Skip To Next Batch Track Clicked");
 
@@ -329,6 +344,12 @@ public class MP3View implements Initializable {
                 loadTrackBatch(tempList, batchIndex);
             }
         } else {
+
+            if (trackList.isEmpty()) {
+                System.out.println("No Tracks In PlayList");
+                return;
+            }
+
             System.out.println("Current Track: " + trackList.get(currentTrackIndex));
             System.out.println("Skip To Next Track Clicked");
 
@@ -771,6 +792,9 @@ public class MP3View implements Initializable {
             if (trackList.isEmpty()) {
                 return;
             }
+            if (mpthreePlayer == null) {
+                return;
+            }
             Duration total = mpthreePlayer.getTotalDuration();
             if (total != null && total.toMillis() > 0) {
                 double progress = newTime.toMillis() / total.toMillis();
@@ -882,6 +906,12 @@ public class MP3View implements Initializable {
 
         // Set up progress bar and add listener for track time
         mpthreePlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+            if (tempList.isEmpty()) {
+                return;
+            }
+            if (mpthreePlayer == null) {
+                return;
+            }
             Duration total = mpthreePlayer.getTotalDuration();
             if (total != null && total.toMillis() > 0) {
                 double progress = newTime.toMillis() / total.toMillis();
