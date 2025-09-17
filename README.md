@@ -104,7 +104,7 @@ The MP3 player window will open with the full hi-fi styled interface.
 
 ---
 
-## 🖌️ Credits
+## 🖌️ Tools & Design Process
 
 - **Icons and branding** created in CorelDRAW and FontForge  
 - **Custom fonts** (`MediaPlayer.ttf` and `MatrixCustom.ttf`) designed for this project  
