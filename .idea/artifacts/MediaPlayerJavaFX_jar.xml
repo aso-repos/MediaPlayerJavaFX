@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MediaPlayerJavaFX:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MediaPlayerJavaFX_jar</output-path>
+    <root id="archive" name="MediaPlayerJavaFX.jar">
+      <element id="module-output" name="MediaPlayerJavaFX" />
+    </root>
+  </artifact>
+</component>

@@ -120,19 +120,19 @@ public class MP3View implements Initializable {
         Font.loadFont(getClass().getResourceAsStream("/fonts/MediaPlayer.ttf"), 12);
         Font.loadFont(getClass().getResourceAsStream("/fonts/MatrixCustom.ttf"), 12);
 
-        String[] testFiles = {"/music/Blue_Giraffe_-_Epic_Trailer_Inspire.mp3",
-                "/music/Metal Impact Sound Effects - Sample Library.mp3",
-                "/music/Morning Guided Meditation For Positive Energy & Motivation.mp3"};
-
-        // Add test files trackList ArrayList
-        for (String path : testFiles) {
-            URL trackUrl = getClass().getResource(path);
-            if (trackUrl != null) {
-                trackList.add(trackUrl.toExternalForm());
-            } else {
-                System.out.println("Track Not Found: " + path);
-            }
-        }
+//        String[] testFiles = {"/music/Blue_Giraffe_-_Epic_Trailer_Inspire.mp3",
+//                "/music/Metal Impact Sound Effects - Sample Library.mp3",
+//                "/music/Morning Guided Meditation For Positive Energy & Motivation.mp3"};
+//
+//        // Add test files trackList ArrayList
+//        for (String path : testFiles) {
+//            URL trackUrl = getClass().getResource(path);
+//            if (trackUrl != null) {
+//                trackList.add(trackUrl.toExternalForm());
+//            } else {
+//                System.out.println("Track Not Found: " + path);
+//            }
+//        }
 
         // Hide Playlist
         playlistView.setVisible(false);
@@ -150,10 +150,10 @@ public class MP3View implements Initializable {
             System.out.println("No Tracks Loaded");
         }
 
-        // Check that trackList not empty and load current track into MediaPlayer
-        if (!trackList.isEmpty()) {
-            loadTrack();
-        }
+//        // Check that trackList not empty and load current track into MediaPlayer
+//        if (!trackList.isEmpty()) {
+//            loadTrack();
+//        }
 
         // Add EQ bars to ArrayList
         eqBars = new ArrayList<>(Arrays.asList(eqBar0, eqBar1, eqBar2, eqBar3,
