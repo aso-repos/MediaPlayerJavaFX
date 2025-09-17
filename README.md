@@ -59,6 +59,14 @@ Key goals:
 
 ---
 
+## 🖌️ Tools & Design Process
+
+- **Icons and branding** created in CorelDRAW and FontForge  
+- **Custom fonts** (`MediaPlayer.ttf` and `MatrixCustom.ttf`) designed for this project  
+- Developed entirely from scratch as a standalone JavaFX desktop application
+
+---
+
 ## ⚙️ Usage
 
 1. **Load Tracks**
@@ -101,14 +109,6 @@ The MP3 player window will open with the full hi-fi styled interface.
 - **IDE:** IntelliJ IDEA Community 2024.1.7
 - **UI Builder:** Gluon Scene Builder 21
 - **Version Control:** Git + GitHub
-
----
-
-## 🖌️ Tools & Design Process
-
-- **Icons and branding** created in CorelDRAW and FontForge  
-- **Custom fonts** (`MediaPlayer.ttf` and `MatrixCustom.ttf`) designed for this project  
-- Developed entirely from scratch as a standalone JavaFX desktop application
 
 ---
 
